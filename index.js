@@ -5,9 +5,10 @@
         var userName = document.getElementById("userName").value;
         var password = document.getElementById("password").value;
         var credentials = { userName: userName, password: password };
+        var url = baseURL + '/api/v1/auth';
         // Function to authenticate the user
         function authenticateUser() {
-            var url = baseURL + '/api/v1/auth';
+            // var url = baseURL + '/api/v1/auth';
 
             $.support.cors = true;
             $.ajax({
