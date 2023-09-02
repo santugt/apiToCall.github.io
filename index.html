@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenText Content Server API Configuration</title>
+    <link rel="stylesheet" href="D:\API\ApiOTCSWEB\CSS\index.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+</head>
+<body>
+    <h1>OpenText Content Server API Configuration</h1>
+
+    <form id="configForm">
+        <label for="baseURL">Base URL:</label>
+        <input type="text" id="baseURL" name="baseURL" required><br><br>
+
+        <label for="userName">Username:</label>
+        <input type="text" id="userName" name="userName" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <!-- <input type="button" value="Submit" onclick="authenticateUser()"> -->
+        <input class="button" onclick="authenticateUser()" type="button" value="Auth User" />
+    </form>
+    <div id="messageDiv"></div>
+</body>
+<script src="D:\API\ApiOTCSWEB\JS\index.js"></script>
+</html>
