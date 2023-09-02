@@ -1,6 +1,9 @@
 #messageDiv {
-    margin: 0 auto; /* Center horizontally */
-    margin-top: 20vh; /* Center vertically (adjust as needed) */
+    width: 50%; /* Adjust the width as needed */
+    position: absolute; /* Change position to absolute */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-weight: bold;
     color: #007bff;
     padding: 20px; /* Add padding for size */
