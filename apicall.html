@@ -9,6 +9,7 @@
 <body>
     <h1>OpenText Content Server API</h1>
     <form name="myForm">
+        <input type="text" id="baseURL" name="baseURL" required>
         <input class="button" onclick="fAuthUser()" type="button" value="Auth User" />
         <p><input class="button" onclick="fGetUserInfo()" type="button" value="Get User Info" /></p>
         <p><input class="button" onclick="fCreateFolder()" type="button" value="Create Folder" /></p>
@@ -21,7 +22,8 @@
 
     <script>
         var myTicket;
-        var baseURL = 'http://localhost/otcs/cs.exe';
+        // var baseURL = 'http://localhost/otcs/cs.exe';
+        var baseURL = document.getElementById("baseURL").value;
         var credentials = { userName: "Admin", password: "Santu@123" };
 
         // Function to authenticate the user
