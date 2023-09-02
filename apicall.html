@@ -30,11 +30,11 @@
         function fAuthUser() {
             var url = saaaa + '/api/v1/auth';
 
-            $.support.cors = true;
+            $.support.cors = false;
             $.ajax({
                 url: url,
                 type: "POST",
-                crossDomain: true,
+                crossDomain: false,
                 data: credentials,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
