@@ -3,33 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenText Content Server API Configuration</title>
-    
-    <link rel="stylesheet" href="https://santugt.github.io/apiToCall.github.io/index.css">
+    <title>Content Server API</title>
+   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
+    <style>
+        /* Increase the width of the baseURL input field */
+        #baseURL {
+            width: 300px; /* Adjust the width to your preference */
+        }
+
+        /* Apply rounded corners to the input elements */
+        input[type="text"],
+        input[type="password"] {
+            border-radius: 15px;
+        }
+
+        /* Add a curved hover effect */
+        input[type="text"]:hover,
+        input[type="password"]:hover {
+            background-color: lightgoldenrodyellow;
+            transition: background-color 0.3s ease;
+            border-radius: 15px; /* Add rounded corners on hover */
+        }
+
+        input[type="button"].btn-primary:hover {
+            background-color: lightblue; /* Change to the desired color */
+            transition: background-color 0.3s ease;
+        }
+
+        /* Center the heading and button */
+        .text-center {
+            text-align: center;
+        }
+
+        /* Add some margin to the heading */
+        h1 {
+            margin-top: 20px;
+        }
+
+        /* Center the button above the table */
+        .btn-center {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Add margin to the left side of the button */
+        .btn-margin {
+            margin-left: 85px; /* Adjust the margin as needed */
+        }
+
+        /* Make labels bold and medium */
+        label {
+            font-weight: bold;
+            font-size: medium;
+        }
+    </style>
 </head>
-<body>
-    <h1>Content Server API</h1>
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <h1>Content Server API</h1><br><br>
 
-    <form id="configForm">
-        <label for="baseURL">Base URL:</label>
-        <input type="text" id="baseURL" name="baseURL" required><br><br>
+        <form id="configForm">
+            <table>
+                <tr>
+                    <td><label for="baseURL">Base URL:&nbsp;&nbsp;</label></td>
+                    <td><input type="text" id="baseURL" name="baseURL" required></td>
+                </tr>
+                <tr>
+                    <td><label for="userName">Username:&nbsp;&nbsp;</label></td>
+                    <td><input type="text" id="userName" name="userName" required></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:&nbsp;&nbsp;</label></td>
+                    <td><input type="password" id="password" name="password" required></td>
+                </tr>
+            </table>
+           
+            <div class="btn-center">
+                <input class="btn btn-primary btn-margin" onclick="authenticateUser()" type="button" value="Submit To Generate Ticket" />
+            </div>
+        </form>
+        <div id="messageDiv"></div>
+    </div>
 
-        <label for="userName">Username:</label>
-        <input type="text" id="userName" name="userName" required><br><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <!-- <input type="button" value="Submit" onclick="authenticateUser()"> -->
-        <input class="button" onclick="authenticateUser()" type="button" value="Auth User" />
-    </form>
-    <div id="messageDiv"></div>
-   
     <script src="https://santugt.github.io/apiToCall.github.io/index.js"></script>
-    
+    <!-- Include Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
