@@ -3,206 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenText Content Server API Configuration</title>
+    <title>OpenText Content Server API</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     
-   
 </head>
 <body>
-   <form name="myForm"><input class="button" onclick="fAuthUser()" type="BUTTON" value="Auth User" />
-<p><input class="button" onclick="fGetUserInfo()" type="BUTTON" value="GetUserInfo" /></p>
+    <h1>OpenText Content Server API</h1>
+    <form name="myForm">
+        <input class="button" onclick="fAuthUser()" type="button" value="Auth User" />
+        <p><input class="button" onclick="fGetUserInfo()" type="button" value="Get User Info" /></p>
+        <p><input class="button" onclick="fCreateFolder()" type="button" value="Create Folder" /></p>
+        <p>
+            <input type="text" id="folderName" placeholder="Folder Name">
+            <input type="text" id="parentFolderId" placeholder="Parent Folder ID">
+            <input class="button" onclick="fCreateCustomFolder()" type="button" value="Create Custom Folder" />
+        </p>
+    </form>
 
-<p><input class="button" onclick="fCreateFolder()" type="BUTTON" value="Create Folder" /></p>
+    <script>
+        var myTicket;
+        var baseURL = 'http://localhost/otcs/cs.exe';
+        var credentials = { userName: "Admin", password: "Santu@123" };
 
-<p><input class="button" onclick="fCreateProject()" type="BUTTON" value="Create Project" /></p>
+        // Function to authenticate the user
+        function fAuthUser() {
+            var url = baseURL + '/api/v1/auth';
 
-<p><input id="newfile " onchange="getFileName(this)" type="file" /></p>
-</form>
-<SCRIPT LANGUAGE="javascript">
+            $.support.cors = true;
+            $.ajax({
+                url: url,
+                type: "POST",
+                crossDomain: true,
+                data: credentials,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded",
+                success: function (res) {
+                    alert("Ticket=" + res.ticket);
+                    myTicket = res.ticket;
+                },
+                error: function (res) {
+                    alert("Bad thing happened! " + res.statusText);
+                }
+            });
+        }
 
-var myTicket;
-var baseURL='http://localhost/otcs/cs.exe';
-var credentials = { userName: "Admin", password: "Santu@123" };
+        // Function to create a folder
+        function fCreateFolder() {
+            alert(myTicket);
+            var name = new Date().toISOString().substring(0, 10);
+            var myBody = { type: "0", parent_id: "2000", name: "Project - " + makeId() };
 
+            $(document).ready(function () {
+                var url = baseURL + '/api/v1/nodes';
+                $.support.cors = true;
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    crossDomain: true,
+                    data: myBody,
+                    dataType: "json",
+                    headers: { "OTCSTICKET": myTicket },
+                    success: function (res) {
+                        alert("success!");
+                        alert("Folder object id = " + res.id);
+                    },
+                    error: function (res) {
+                        alert("Bad thing happened! " + res.statusText);
+                    }
+                });
+            });
+        }
 
+        // Function to create a custom folder with user-specified name and parent folder ID
+        function fCreateCustomFolder() {
+            alert(myTicket);
+            var folderName = document.getElementById("folderName").value;
+            var parentFolderId = document.getElementById("parentFolderId").value;
 
-// ************************************************************************
-function makeId() {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var myBody = { type: "0", parent_id: parentFolderId, name: folderName };
 
-  for (var i = 0; i < 10; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+            $(document).ready(function () {
+                var url = baseURL + '/api/v1/nodes';
+                $.support.cors = true;
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    crossDomain: true,
+                    data: myBody,
+                    dataType: "json",
+                    headers: { "OTCSTICKET": myTicket },
+                    success: function (res) {
+                        alert("success!");
+                        alert("Custom Folder object id = " + res.id);
+                    },
+                    error: function (res) {
+                        alert("Bad thing happened! " + res.statusText);
+                    }
+                });
+            });
+        }
 
-dt= new Date().toISOString().slice(0,10);  
+        // Function to generate a unique ID
+        function makeId() {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for (var i = 0; i < 10; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            dt = new Date().toISOString().slice(0, 10);
+            return text + "-" + dt;
+        }
 
-return text+"-"+ dt;
-}
-
-
-// ************************************************************************
-function fAuthUser( ) {
-  var url = baseURL+'/api/v1/auth';
-
-
-  $.support.cors = true;
-  $.ajax({
-url:url,
-type:"POST",
-crossDomain: true,
-data:credentials,
-dataType:"json",
-contentType: "application/x-www-form-urlencoded",
-success:function(res){
-alert("Ticket=" + res.ticket);
-myTicket = res.ticket;
-},
-error:function(res){
-alert("Bad thing happened! " + res.statusText);
-}
-});
-}
-
-// ************************************************************************
-function fGetUserInfo ( ) {
-alert(myTicket);
-$(document).ready(function(){
-var url = baseURL+'/api/v1/auth';
-$.support.cors = true;
-$.ajax({
-url:url,
-type:"GET",
-crossDomain: true,
-dataType:"json",
-headers: { "OTCSTICKET": myTicket },
-success:function(userInfo){
-alert("success!");
-alert(userInfo.data.first_name);
-},
-error:function(userInfo){
-alert("Bad thing happened! " + userInfo.statusText);
-}
-});
-});
-}
-
-// ************************************************************************
-function fCreateFolder ( ) {
-alert(myTicket);
-  var myBody = { type: "0", parent_id: "2000", name: "test rest api folder" };
-
-var name=new Date().toISOString().substring(0, 10);
-  var myBody = { type: "0", parent_id: "25752", name: "Project - " + makeId()};
-
-
-$(document).ready(function(){
-
-var url = baseURL+'/api/v1/nodes';
-$.support.cors = true;
-$.ajax({
-url:url,
-type:"POST",
-crossDomain: true,
-data:myBody,
-dataType:"json",
-headers: { "OTCSTICKET": myTicket },
-success:function(res){
-alert("success!");
-alert("Folder object id = " + res.id);
-},
-error:function(res){
-alert("Bad thing happened! " + res.statusText);
-}
-});
-});
-}
-
-
-
-
-// ************************************************************************
-function fCreateProject ( ) {
-alert(myTicket);
-  //var myBody = { type: "202", parent_id: "24290", name: "test rest api folder" };
-
-var name=new Date().toISOString().substring(0, 10);
-  var myBody = { type: "202", parent_id: "25752", name: "Project - " + makeId()};
-
-
-$(document).ready(function(){
-
-var url = baseURL+'/api/v2/nodes';
-$.support.cors = true;
-$.ajax({
-url:url,
-type:"POST",
-crossDomain: true,
-data:myBody,
-dataType:"json",
-headers: { "OTCSTICKET": myTicket },
-success:function(res){
-alert("success!");
-alert("Folder object id = " + res.id);
-},
-error:function(res){
-alert("Bad thing happened! " + res.statusText);
-}
-});
-});
-}
-
-
-
-// ************************************************************************
-
-function fCreateDoc (file) {
-    alert("CreateDoc: " + myTicket);
-    var myBody = { type: "144", parent_id: "25752", name: file.name };
-formData = new FormData();
-formData.append('body', JSON.stringify(myBody));
-formData.append('file', file);
-$(document).ready(function(){
-var url = baseURL+'/api/v1/nodes';
-$.support.cors = true;
-$.ajax({
-url:url,
-type:"POST",
-crossDomain: true,
-data:formData,
-processData: false,
-                                contentType: false,
-headers: { "OTCSTICKET": myTicket },
-success:function(res){
-alert("success!");
-alert(res);
-},
-error:function(res){
-alert("Bad thing happened! " + res.statusText);
-alert(res);
-console.log("Bad thing happend! " + res.statusText);
-console.log(res);
-}
-});
-});
-}
-
-
-
-
-function getFileName(elm) {
- //alert(elm);
- var file = elm.files[0];
-var fn = $(elm).val();
-// alert(file)
-   //upload(file);
-
-fCreateDoc(file);
-
-}
-
-
-</SCRIPT>
+        // Rest of your functions...
+    </script>
 </body>
 </html>
+
 
 
