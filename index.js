@@ -24,8 +24,7 @@
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
                 success: function (res) {
-                    document.getElementById("messageDiv").innerHTML = "OTCSTicket For Your Reference==> " +res.ticket;
-                    alert("OTCSTicket is Generated");
+                    document.getElementById("messageDiv").innerHTML = "OTCSTicket is Generated";
                     myTicket = res.ticket;
                 },
                 error: function (res) {
