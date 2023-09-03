@@ -79,7 +79,7 @@ function updateFolderNameDescription() {
 
 
 function fetchCategories() {
-            var url = baseURL + '/api/v1/nodes/180089/categories';
+            var url = 'http://localhost/otcs/cs.exe/api/v1/nodes/180089/categories';
 
             $.ajax({
                 url: url,
