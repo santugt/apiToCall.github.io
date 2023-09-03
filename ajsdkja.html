@@ -40,6 +40,27 @@
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
              success: function (res) {
+                    document.getElementById("messageDiv").innerHTML = "OTCSTicket is Generated";
+                    alert("OTCSTicket is Generated");
+                    myTicket = res.ticket;
+                },
+
+                error: function (res) {
+                    alert("Something Error happened! " + res.statusText);
+                }
+            });
+        }
+
+        function fetchCategories() {
+            var url = baseURL + '/api/v1/nodes/180089/categories';
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                headers: { "OTCSTICKET": myTicket },
+
+               success: function (res) {
     var data = res.data;
 
     if (data && data.length > 0) {
@@ -58,25 +79,6 @@
     }
 },
 
-                error: function (res) {
-                    alert("Something Error happened! " + res.statusText);
-                }
-            });
-        }
-
-        function fetchCategories() {
-            var url = baseURL + '/api/v1/nodes/180089/categories';
-
-            $.ajax({
-                url: url,
-                type: "GET",
-                dataType: "json",
-                headers: { "OTCSTICKET": myTicket },
-
-                success: function (res) {
-                    alert("success!");
-                    alert("Custom Folder object id = " + res.id);
-                },
                 error: function (res) {
                     alert("Bad thing happened! " + res.statusText);
                 }
