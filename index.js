@@ -33,6 +33,13 @@
                     alert("Something Error happened! " + res.statusText);
                 }
             });
+
+                var contentToShow = document.getElementById('contentToShow');
+            contentToShow.style.display = 'none';
+
+            // Show the updateFolderSection div
+            var updateFolderSection = document.getElementById('updateFolderSection');
+            updateFolderSection.style.display = 'block';
         }
 
 
