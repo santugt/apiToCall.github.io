@@ -72,6 +72,7 @@
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100">
     <div class="text-center">
+        <div id="contentToShow">
         <h1>Content Server API</h1><br><br>
 
         <form id="configForm">
@@ -91,11 +92,13 @@
             </table>
            
             <div class="btn-center">
-                <input class="btn btn-primary btn-margin" onclick="authenticateUser()" type="button" value="Submit To Generate Ticket" />
+                <input class="btn btn-primary btn-margin" onclick="authenticateUser(); showUpdateFolderSection();" type="button" value="Submit To Generate Ticket" />
             </div>
         </form>
         <div id="messageDiv"></div>
+            
     </div>
+        <div id="updateFolderSection" style="display: none;">
      <h1>Update Folder Name and Description</h1>
 
     <form id="updateForm">
@@ -115,6 +118,30 @@
     </form>
 
     <div id="messageDiv"></div>
+</div>
+
+        <script>
+        function showUpdateFolderSection() {
+            // Hide the contentToShow div
+            var contentToShow = document.getElementById('contentToShow');
+            contentToShow.style.display = 'none';
+
+            // Show the updateFolderSection div
+            var updateFolderSection = document.getElementById('updateFolderSection');
+            updateFolderSection.style.display = 'block';
+        }
+
+        // // Function to show another section
+        // function showAnotherSection() {
+        //     // Hide the contentToShow div
+        //     var contentToShow = document.getElementById('contentToShow');
+        //     contentToShow.style.display = 'none';
+
+        //     // Show the anotherSection div
+        //     var anotherSection = document.getElementById('anotherSection');
+        //     anotherSection.style.display = 'block';
+        // }
+    </script>
     <script src="https://santugt.github.io/apiToCall.github.io/index.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
