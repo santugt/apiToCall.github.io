@@ -18,38 +18,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        var myTicket;
-        var baseURL;
-        var userName;
-        var password;
-        var credentials;
-
-        function authenticateUser1() {
-            baseURL = 'http://localhost/otcs/cs.exe';
-            userName = 'Admin';
-            password = 'Santu@123';
-            credentials = { userName: userName, password: password };
-            var url = baseURL + '/api/v1/auth';
-
-            $.support.cors = true;
-            $.ajax({
-                url: url,
-                type: "POST",
-                crossDomain: true,
-                data: credentials,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded",
-             success: function (res) {
-                    
-                    alert("OTCSTicket is Generated");
-                    myTicket = res.ticket;
-                },
-
-                error: function (res) {
-                    alert("Something Error happened! " + res.statusText);
-                }
-            });
-        }
+        
 
         function fetchCategories() {
             var url = baseURL + '/api/v1/nodes/180089/categories';
