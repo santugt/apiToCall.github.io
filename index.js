@@ -79,7 +79,10 @@ function updateFolderNameDescription() {
 
 
 function fetchCategories() {
-            var url = baseURL + '/api/v1/nodes/180089/categories';
+            var nodeId = document.getElementById('nodeId').value;
+
+           
+            var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
 
             $.ajax({
                 url: url,
