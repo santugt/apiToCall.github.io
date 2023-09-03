@@ -42,44 +42,62 @@
                 }
             });
 
-                var contentToShow = document.getElementById('contentToShow');
-            contentToShow.style.display = 'none';
+            //     var contentToShow = document.getElementById('contentToShow');
+            // contentToShow.style.display = 'none';
 
-            // Show the updateFolderSection div
-            var updateFolderSection = document.getElementById('updateFolderSection');
-            updateFolderSection.style.display = 'block';
+            // // Show the updateFolderSection div
+            // var updateFolderSection = document.getElementById('updateFolderSection');
+            // updateFolderSection.style.display = 'block';
         }
 
 
 function function fetchCategories() {
         
-            var name = document.getElementById("name").value;
-            var description = document.getElementById("description").value;
-            var nodeId = document.getElementById("nodeId").value;
+            // var name = document.getElementById("name").value;
+            // var description = document.getElementById("description").value;
+            // var nodeId = document.getElementById("nodeId").value;
     
-            var myBody = {
-                description: description,
-                name: name
-            };
+            // var myBody = {
+            //     description: description,
+            //     name: name
+            // };
     
             var url = baseURL + '/api/v1/nodes/180089/categories';
 ;
     
-            $.ajax({
-                url: url,
-                type: "PUT",
-                crossDomain: true,
-                data: myBody,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded",
-                headers: { "OTCSTICKET": myTicket },
-                success: function (res) {
-                    alert("success!");
-                    alert("Custom Folder object id = " + res);
-                },
-                error: function (res) {
-                    alert("Bad thing happened! " + res.statusText);
-                }
-            });
-        }
+        //     $.ajax({
+        //         url: url,
+        //         type: "GET",
+        //         crossDomain: true,
+        //         data: myBody,
+        //         dataType: "json",
+        //         contentType: "application/x-www-form-urlencoded",
+        //         headers: { "OTCSTICKET": myTicket },
+        //         success: function (res) {
+        //             alert("success!");
+        //             alert("Custom Folder object id = " + res);
+        //         },
+        //         error: function (res) {
+        //             alert("Bad thing happened! " + res.statusText);
+        //         }
+        //     });
+        // 
+
+  $.ajax({
+    url: url,
+    type: "GET", 
+    dataType: "json",
+    headers: { "OTCSTICKET": myTicket }, 
+
+    success: function (data) {
+        
+        console.log("Success! Data received:", data);
+    },
+
+    error: function (xhr, status, error) {
+        
+        console.error("Error:", status, error);
+    }
+});
+}
 </script>
