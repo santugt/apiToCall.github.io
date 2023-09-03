@@ -83,12 +83,12 @@ function fetchCategories() {
 
            
             var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
-
+            myBody={};
             $.ajax({
                 url: url,
                 type: "GET",
                 crossDomain: true,
-                // data: myBody,
+                data: myBody,
                 dataType: "json",
                 headers: { "OTCSTICKET": myTicket },
 
