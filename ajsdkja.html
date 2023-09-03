@@ -1,24 +1,34 @@
-<!-- Add a button to trigger fetching the categories -->
-<button onclick="fetchCategories()">Fetch Categories</button>
-<button onclick="authenticateUser1()">authenticateUser</button>
-<div id="categoryList">
-  <!-- Category data will be displayed here -->
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Data</title>
+    <!-- Add your CSS styles or external CSS links here if needed -->
+</head>
+<body>
+    <h1>Category Data</h1>
 
-<script>
-           
-        
+    <!-- Add a button to trigger fetching the categories -->
+    <button onclick="fetchCategories()">Fetch Categories</button>
+    <button onclick="authenticateUser1()">Authenticate User</button>
+
+    <div id="categoryList">
+        <!-- Category data will be displayed here -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
         var myTicket;
         var baseURL;
         var userName;
         var password;
-        
         var credentials;
+
         function authenticateUser1() {
-        baseURL = 'http://localhost/otcs/cs.exe';
-        userName = 'Admin';
-        password = 'Santu@123';
-        credentials = { userName: userName, password: password };
+            baseURL = 'http://localhost/otcs/cs.exe';
+            userName = 'Admin';
+            password = 'Santu@123';
+            credentials = { userName: userName, password: password };
             var url = baseURL + '/api/v1/auth';
 
             $.support.cors = true;
@@ -30,54 +40,43 @@
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
                 success: function (res) {
-                    // document.getElementById("messageDiv").innerHTML = "OTCSTicket is Generated";
                     alert("OTCSTicket is Generated");
                     myTicket = res.ticket;
                 },
                 error: function (res) {
-                    // document.getElementById("messageDiv").innerHTML = "Something Error happened! " + res.statusText;
                     alert("Something Error happened! " + res.statusText);
                 }
             });
-
-            //     var contentToShow = document.getElementById('contentToShow');
-            // contentToShow.style.display = 'none';
-
-            // // Show the updateFolderSection div
-            // var updateFolderSection = document.getElementById('updateFolderSection');
-            // updateFolderSection.style.display = 'block';
         }
 
-
-function function fetchCategories() {
-    
+        function fetchCategories() {
             var url = baseURL + '/api/v1/nodes/180089/categories';
-        
-        //         success: function (res) {
-        //             alert("success!");
-        //             alert("Custom Folder object id = " + res);
-        //         },
-        //         error: function (res) {
-        //             alert("Bad thing happened! " + res.statusText);
-        //         }
-        //     });
-        // 
 
-  $.ajax({
-    url: url,
-    type: "GET", 
-    dataType: "json",
-    headers: { "OTCSTICKET": myTicket }, 
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                headers: { "OTCSTICKET": myTicket },
 
-    success: function (data) {
-        
-        console.log("Success! Data received:", data);
-    },
+                success: function (data) {
+                    var categoryList = document.getElementById('categoryList');
+                    categoryList.innerHTML = ''; // Clear any existing data
 
-    error: function (xhr, status, error) {
-        
-        console.error("Error:", status, error);
-    }
-});
-}
-</script>
+                    // Iterate through the data and display it
+                    for (var i = 0; i < data.length; i++) {
+                        var category = data[i];
+                        var categoryItem = document.createElement('div');
+                        categoryItem.textContent = 'ID: ' + category.id + ', Name: ' + category.name;
+                        categoryList.appendChild(categoryItem);
+                    }
+                },
+
+                error: function (xhr, status, error) {
+                    console.error("Error:", status, error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
