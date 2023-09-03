@@ -47,7 +47,7 @@ function updateFolderNameDescription() {
         
             var name = document.getElementById("name").value;
             var description = document.getElementById("description").value;
-            var nodeId = document.getElementById("nodeId").value;
+            var nodeId = document.getElementById("nodeIdF").value;
     
             var myBody = {
                 description: description,
@@ -79,7 +79,7 @@ function updateFolderNameDescription() {
 
 
 function fetchCategories() {
-            var nodeId = document.getElementById('nodeId').value;
+            var nodeId = document.getElementById('nodeIdC').value;
 
            
             var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
