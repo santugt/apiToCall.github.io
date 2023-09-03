@@ -85,7 +85,7 @@ function fetchCategories() {
                 url: url,
                 type: "GET",
                 dataType: "json",
-                headers: { "OTCSTICKET": myTicket },
+                headers: { "OTCSTICKET": "7R1SQS0lNbPkWWLRuTWtGG+aeR/yiDZcEXhqPgZmDBxXPjWEV6wSNsMTbcse2+q5vMmRkJOTEYdgAGJBihL7kRXQcXMZmfBOHb1NOS94YLEOn/g9o/qswEgNlUFp+RUcBO6j70skAarL/xc96Ys1Jvy+fWndQZUi" },
 
                success: function (res) {
     var data = res.data;
