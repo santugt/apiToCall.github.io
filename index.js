@@ -54,7 +54,7 @@ function updateFolderNameDescription() {
                 name: name
             };
     
-            var url = 'http://localhost/otcs/cs.exe/api/v1/nodes/' + nodeId;
+            var url = baseURL + '/api/v1/nodes/' + nodeId;
     
             $.ajax({
                 url: url,
