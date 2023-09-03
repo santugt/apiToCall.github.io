@@ -88,7 +88,7 @@ function fetchCategories() {
                 url: url,
                 type: "GET",
                 crossDomain: true,
-                data: myBody,
+                
                 contentType: "application/x-www-form-urlencoded",
                 dataType: "json",
                 headers: { "OTCSTICKET": myTicket },
