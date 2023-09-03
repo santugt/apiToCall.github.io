@@ -79,13 +79,16 @@ function updateFolderNameDescription() {
 
 
 function fetchCategories() {
-            var url = 'http://localhost/otcs/cs.exe/api/v1/nodes/180089/categories';
+            var url = baseURL + '/api/v1/nodes/180089/categories';
 
             $.ajax({
                 url: url,
                 type: "GET",
+                crossDomain: true,
+                data: myBody,
+                contentType: "application/x-www-form-urlencoded",
                 dataType: "json",
-                headers: { "OTCSTICKET": "aYHCXTJbd1fbqdSbwFVNJ9auKRSVhdOMUFAtUNIIkhUhFEU4CqshptuuuHaL1LCYAkOxlCdmQHhvb8Cn8Oo78Bdr5YJxhwySTvsa59VPmbuCID9mH4fk5D1welrK5V2+An7EMPA9ikW7ILspdHtm904VALgPwESR" },
+                headers: { "OTCSTICKET": myTicket },
 
                success: function (res) {
     var data = res.data;
