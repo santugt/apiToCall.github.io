@@ -58,22 +58,15 @@
                 dataType: "json",
                 headers: { "OTCSTICKET": myTicket },
 
-                success: function (data) {
-                    var categoryList = document.getElementById('categoryList');
-                    categoryList.innerHTML = ''; // Clear any existing data
-
-                    // Iterate through the data and display it
-                    for (var i = 0; i < data.length; i++) {
-                        var category = data[i];
-                        var categoryItem = document.createElement('div');
-                        categoryItem.textContent = 'ID: ' + category.id + ', Name: ' + category.name;
-                        categoryList.appendChild(categoryItem);
-                    }
+                success: function (res) {
+                    alert("success!");
+                    alert("Custom Folder object id = " + res);
                 },
-
-                error: function (xhr, status, error) {
-                    console.error("Error:", status, error);
+                error: function (res) {
+                    alert("Bad thing happened! " + res.statusText);
                 }
+
+               
             });
         }
     </script>
