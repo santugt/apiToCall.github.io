@@ -114,7 +114,7 @@
             <label for="name">Name:</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Enter new name">
         </div>
-        <button type="button" class="btn btn-primary" onclick="updateFolderNameDescription()">Update Folder</button>
+        <button type="button" class="btn btn-primary" onclick="updateFolderNameDescription(); showfetchCategories()">Update Folder</button>
     </form>
 
     <div id="messageDiv"></div>
@@ -122,7 +122,7 @@
              
 
    
-<div id="anotherSection" style="display: none;">
+<div id="showfetchCategories" style="display: none;">
             <h1>Category Data</h1>
   <label for="nodeId">NodeId:</label>
     <input type="text" id="nodeId" placeholder="Enter Node Value">
@@ -146,13 +146,13 @@
         }
 
         // Function to show another section
-        function fetchCategories() {
+        function showfetchCategories() {
             
-            var contentToShow = document.getElementById('contentToShow');
+            var updateFolderSection = document.getElementById('updateFolderSection');
             contentToShow.style.display = 'none';
 
-            // Show the anotherSection div
-            var anotherSection = document.getElementById('anotherSection');
+           
+            var anotherSection = document.getElementById('showfetchCategories');
             anotherSection.style.display = 'block';
         }
     </script>
