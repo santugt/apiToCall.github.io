@@ -14,8 +14,6 @@
         var password;
         
         var credentials;
-        // var url = baseURL + '/api/v1/auth';
-        // Function to authenticate the user
         function authenticateUser1() {
         baseURL = 'http://localhost/otcs/cs.exe';
         userName = 'Admin';
@@ -52,27 +50,9 @@
 
 
 function function fetchCategories() {
-        
-            // var name = document.getElementById("name").value;
-            // var description = document.getElementById("description").value;
-            // var nodeId = document.getElementById("nodeId").value;
-    
-            // var myBody = {
-            //     description: description,
-            //     name: name
-            // };
     
             var url = baseURL + '/api/v1/nodes/180089/categories';
-;
-    
-        //     $.ajax({
-        //         url: url,
-        //         type: "GET",
-        //         crossDomain: true,
-        //         data: myBody,
-        //         dataType: "json",
-        //         contentType: "application/x-www-form-urlencoded",
-        //         headers: { "OTCSTICKET": myTicket },
+        
         //         success: function (res) {
         //             alert("success!");
         //             alert("Custom Folder object id = " + res);
