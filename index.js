@@ -73,3 +73,43 @@ function updateFolderNameDescription() {
                 }
             });
         }
+
+
+
+
+
+function fetchCategories() {
+            var url = baseURL + '/api/v1/nodes/180089/categories';
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                headers: { "OTCSTICKET": myTicket },
+
+               success: function (res) {
+    var data = res.data;
+
+    if (data && data.length > 0) {
+        var categoryList = document.getElementById('categoryList');
+        categoryList.innerHTML = ''; // Clear any existing data
+
+        // Iterate through the data and display "id"
+        for (var i = 0; i < data.length; i++) {
+            var category = data[i];
+            var categoryItem = document.createElement('div');
+            categoryItem.textContent = 'ID: ' + category.id;
+            categoryList.appendChild(categoryItem);
+        }
+    } else {
+        alert("No data found.");
+    }
+},
+
+                error: function (res) {
+                    alert("Bad thing happened! " + res.statusText);
+                }
+
+               
+            });
+        }
