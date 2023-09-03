@@ -119,7 +119,21 @@
 
     <div id="messageDiv"></div>
 </div>
+             
 
+   
+<div id="anotherSection" style="display: none;">
+            <h1>Category Data</h1>
+  <label for="nodeId">NodeId:</label>
+    <input type="text" id="nodeId" placeholder="Enter Node Value">
+    <!-- Add a button to trigger fetching the categories -->
+    <button onclick="fetchCategories()" value="fetchCategories"></button>
+    
+
+    <div id="categoryList">
+        <!-- Category data will be displayed here -->
+    </div>
+        </div>
         <script>
         function showUpdateFolderSection() {
             // Hide the contentToShow div
@@ -131,16 +145,16 @@
             updateFolderSection.style.display = 'block';
         }
 
-        // // Function to show another section
-        // function showAnotherSection() {
-        //     // Hide the contentToShow div
-        //     var contentToShow = document.getElementById('contentToShow');
-        //     contentToShow.style.display = 'none';
+        // Function to show another section
+        function fetchCategories() {
+            
+            var contentToShow = document.getElementById('contentToShow');
+            contentToShow.style.display = 'none';
 
-        //     // Show the anotherSection div
-        //     var anotherSection = document.getElementById('anotherSection');
-        //     anotherSection.style.display = 'block';
-        // }
+            // Show the anotherSection div
+            var anotherSection = document.getElementById('anotherSection');
+            anotherSection.style.display = 'block';
+        }
     </script>
     <script src="https://santugt.github.io/apiToCall.github.io/index.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
