@@ -96,7 +96,25 @@
         </form>
         <div id="messageDiv"></div>
     </div>
+     <h1>Update Folder Name and Description</h1>
 
+    <form id="updateForm">
+        <div class="form-group">
+            <label for="nodeId">Node ID:</label>
+            <input type="text" class="form-control" id="nodeId" name="nodeId" placeholder="Enter Node ID">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" class="form-control" id="description" name="description" placeholder="Enter new description">
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter new name">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="updateFolderNameDescription()">Update Folder</button>
+    </form>
+
+    <div id="messageDiv"></div>
     <script src="https://santugt.github.io/apiToCall.github.io/index.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
