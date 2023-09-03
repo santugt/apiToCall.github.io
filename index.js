@@ -34,3 +34,35 @@
                 }
             });
         }
+
+
+function updateFolderNameDescription() {
+        
+            var name = document.getElementById("name").value;
+            var description = document.getElementById("description").value;
+            var nodeId = document.getElementById("nodeId").value;
+    
+            var myBody = {
+                description: description,
+                name: name
+            };
+    
+            var url = 'http://localhost/otcs/cs.exe/api/v1/nodes/' + nodeId;
+    
+            $.ajax({
+                url: url,
+                type: "PUT",
+                crossDomain: true,
+                data: myBody,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded",
+                headers: { "OTCSTICKET": myTicket },
+                success: function (res) {
+                    alert("success!");
+                    alert("Custom Folder object id = " + res);
+                },
+                error: function (res) {
+                    alert("Bad thing happened! " + res.statusText);
+                }
+            });
+        }
