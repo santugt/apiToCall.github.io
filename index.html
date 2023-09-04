@@ -125,13 +125,13 @@
             </table>
            
             <div class="btn-center">
-                <input class="btn btn-primary btn-margin" onclick="authenticateUser(); showUpdateFolderSection();" type="button" value="Submit To Generate Ticket" />
+                <input class="btn btn-primary btn-margin" onclick="authenticateUser(); showButtons();" type="button" value="Submit To Generate Ticket" />
             </div>
         </form>
         <div id="messageDiv"></div>
             
     </div>
-        <div class="button-container" id="updateFolderSection" style="display: none;">
+        <div class="button-container" id="showButtons" style="display: none;">
            
         <div class="left-buttons">
             <button class="button">Button 1</button>
@@ -165,13 +165,13 @@
     </div>
         </div>
         <script>
-        function showUpdateFolderSection() {
+        function showButtons()() {
             // Hide the contentToShow div
             var contentToShow = document.getElementById('contentToShow');
             contentToShow.style.display = 'none';
 
             // Show the updateFolderSection div
-            var updateFolderSection = document.getElementById('updateFolderSection');
+            var updateFolderSection = document.getElementById('showButtons()');
             updateFolderSection.style.display = 'block';
         }
 
