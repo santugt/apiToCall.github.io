@@ -26,6 +26,7 @@
                 success: function (res) {
                     document.getElementById("messageDiv").innerHTML = "OTCSTicket is Generated";
                     alert("OTCSTicket is Generated");
+                     window.location.href = "D:\API\ApiOTCSWEB\HTML\index.html";
                     myTicket = res.ticket;
                 },
                 error: function (res) {
@@ -35,19 +36,11 @@
             });
 
                 
-              showButtons();
+            
           
         }
 
-function showButtons() {
-    // Hide the contentToShow div
-    var contentToShow = document.getElementById('contentToShow');
-    contentToShow.style.display = 'none';
 
-    // Show the showButtons div (not updateFolderSection)
-    var showButtons = document.getElementById('showButtons');
-    showButtons.style.display = 'block';
-}
 function updateFolderNameDescription() {
         
             var name = document.getElementById("name").value;
