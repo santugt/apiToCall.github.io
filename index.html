@@ -12,6 +12,38 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
     <style>
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Style for the buttons */
+        .button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        /* Style for the buttons on the left side */
+        .left-buttons {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* Style for the buttons on the right side */
+        .right-buttons {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
         
         #baseURL {
             width: 300px; 
@@ -100,25 +132,22 @@
             
     </div>
         <div id="updateFolderSection" style="display: none;">
-     <h1>Update Folder Name and Description</h1>
-
-    <form id="updateForm">
-        <div class="form-group">
-            <label for="nodeIdF">Node ID:</label>
-            <input type="text" class="form-control" id="nodeIdF" name="nodeIdF" placeholder="Enter Node ID">
+           <div class="button-container">
+        <div class="left-buttons">
+            <button class="button">Button 1</button>
+            <button class="button">Button 2</button>
+            <button class="button">Button 3</button>
+            <button class="button">Button 4</button>
+            <button class="button">Button 5</button>
         </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <input type="text" class="form-control" id="description" name="description" placeholder="Enter new description">
+        <div class="right-buttons">
+            <button class="button">Button 6</button>
+            <button class="button">Button 7</button>
+            <button class="button">Button 8</button>
+            <button class="button">Button 9</button>
+            <button class="button">Button 10</button>
         </div>
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter new name">
-        </div>
-        <button type="button" class="btn btn-primary" onclick="updateFolderNameDescription(); showfetchCategories()">Update Folder</button>
-    </form>
-
-    <div id="messageDiv"></div>
+    </div>
 </div>
              
 
