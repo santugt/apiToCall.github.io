@@ -26,7 +26,7 @@
                 success: function (res) {
                     document.getElementById("messageDiv").innerHTML = "OTCSTicket is Generated";
                     alert("OTCSTicket is Generated");
-                     window.location.href = "D:\API\ApiOTCSWEB\HTML\index.html";
+                     window.location.href = "https://santugt.github.io/apiToCall.github.io/HTML/buttons.html";
                     myTicket = res.ticket;
                 },
                 error: function (res) {
