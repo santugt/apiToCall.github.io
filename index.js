@@ -34,15 +34,20 @@
                 }
             });
 
-                var contentToShow = document.getElementById('contentToShow');
-            contentToShow.style.display = 'none';
-
-            // Show the updateFolderSection div
-            var updateFolderSection = document.getElementById('updateFolderSection');
-            updateFolderSection.style.display = 'block';
+                
+              showButtons();
+          
         }
 
+function showButtons() {
+    // Hide the contentToShow div
+    var contentToShow = document.getElementById('contentToShow');
+    contentToShow.style.display = 'none';
 
+    // Show the showButtons div (not updateFolderSection)
+    var showButtons = document.getElementById('showButtons');
+    showButtons.style.display = 'block';
+}
 function updateFolderNameDescription() {
         
             var name = document.getElementById("name").value;
