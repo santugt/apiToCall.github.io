@@ -26,7 +26,9 @@
                 success: function (res) {
                     document.getElementById("messageDiv").innerHTML = "OTCSTicket is Generated";
                     alert("OTCSTicket is Generated");
+                        
                     myTicket = res.ticket;
+                        window.location.href = "https://santugt.github.io/apiToCall.github.io/HTML/buttons.html";
                 },
                 error: function (res) {
                     document.getElementById("messageDiv").innerHTML = "Something Error happened! " + res.statusText;
@@ -34,14 +36,7 @@
                 }
             });
 
-                var contentToShow = document.getElementById('contentToShow');
-            contentToShow.style.display = 'none';
-
-            // Show the updateFolderSection div
-            var updateFolderSection = document.getElementById('updateFolderSection');
-            updateFolderSection.style.display = 'block';
         }
-
 
 function updateFolderNameDescription() {
         
