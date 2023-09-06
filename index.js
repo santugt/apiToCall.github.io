@@ -114,111 +114,80 @@ function updateFolderNameDescription() {
 
 
 
-// function fetchCategories() {
-//             var nodeId = document.getElementById('nodeIdC').value;
-
-           
-//             var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
-//             myBody={};
-//             $.ajax({
-//                 url: url,
-//                 type: "GET",
-//                 crossDomain: true,
-//                 data: myBody,
-//                 dataType: "json",
-//                 headers: { "OTCSTICKET": myTicket },
-
-//                success: function (res) {
-//     var data = res.data;
-
-//     if (data && data.length > 0) {
-//         var categoryList = document.getElementById('categoryList');
-//         categoryList.innerHTML = ''; // Clear any existing data
-
-//         // Iterate through the data and display "id"
-//         for (var i = 0; i < data.length; i++) {
-//             var category = data[i];
-//             var categoryItem = document.createElement('div');
-//             categoryItem.textContent = 'ID: ' + category.id;
-//             categoryList.appendChild(categoryItem);
-//         }
-//     } else {
-//         alert("No data found.");
-//     }
-// },
-
-//                 error: function (res) {
-//                     alert("Bad thing happened! " + res.statusText);
-//                 }
-
-               
-//             });
-//         }
-
-
-
 function fetchCategories() {
-    var nodeId = document.getElementById('nodeIdC').value;
-    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
-    myBody = {};
-    $.ajax({
-        url: url,
-        type: "GET",
-        crossDomain: true,
-        data: myBody,
-        dataType: "json",
-        headers: { "OTCSTICKET": myTicket },
+            var nodeId = document.getElementById('nodeIdC').value;
+            document.getElementById('nodeIdDisplay').textContent = 'Node ID: ' + nodeId;
 
-        success: function (res) {
-            var data = res.data;
+            var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
+            myBody = {};
+            $.ajax({
+                url: url,
+                type: "GET",
+                crossDomain: true,
+                data: myBody,
+                dataType: "json",
+                headers: { "OTCSTICKET": myTicket },
 
-            if (data && data.length > 0) {
-                var categoryList = document.getElementById('categoryList');
-                categoryList.innerHTML = ''; // Clear any existing data
+                success: function (res) {
+                    var data = res.data;
 
-                // Iterate through the data and display "id"
-                for (var i = 0; i < data.length; i++) {
-                    var category = data[i];
-                    var categoryItem = document.createElement('div');
-                    categoryItem.textContent = 'ID: ' + category.id;
+                    if (data && data.length > 0) {
+                        var categoryList = document.getElementById('categoryList');
+                        categoryList.innerHTML = ''; // Clear any existing data
+
+                        // Iterate through the data and display "id"
+                        for (var i = 0; i < data.length; i++) {
+                            var category = data[i];
+                            var categoryItem = document.createElement('div');
+                            categoryItem.textContent = 'ID: ' + category.id;
+                            categoryList.appendChild(categoryItem);
+
+                            // Fetch and display category details
+                            fetchCategoryDetails(nodeId, category.id);
+                        }
+                    } else {
+                        alert("No data found.");
+                    }
+                },
+
+                error: function (res) {
+                    alert("Bad thing happened! " + res.statusText);
                 }
-                  fetchCategoriesOfNode(nodeId, category.id)
-                }
-         else {
-                alert("No data found.");
-            }
-        },
-
-        error: function (res) {
-            alert("Bad thing happened! " + res.statusText);
+            });
         }
-    });
-}
 
-function fetchCategoriesOfNode(nodeId, categoryID) {
-    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryID;
-    myBody = {};
-    $.ajax({
-        url: url,
-        type: "GET",
-        crossDomain: true,
-        data: myBody,
-        dataType: "json",
-        headers: { "OTCSTICKET": myTicket },
-        success: function (res) {
-            alert(JSON.stringify(res)); 
-           
-            for (var key in res) {
-                if (res.hasOwnProperty(key)) {
-                    var propertyValue = res[key];
-                    console.log("Name: " + key + ", Value: " + propertyValue);
+        function fetchCategoryDetails(nodeId, categoryId) {
+            var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryId;
+            myBody = {};
+            $.ajax({
+                url: url,
+                type: "GET",
+                crossDomain: true,
+                data: myBody,
+                dataType: "json",
+                headers: { "OTCSTICKET": myTicket },
+
+                success: function (res) {
+                    alert(JSON.stringify(res)); // Display the entire response object as a JSON string
+
+                    var categoryInfoElement = document.getElementById('categoryInfo');
+                    categoryInfoElement.innerHTML = ''; // Clear any existing data
+
+                    // Iterate through the properties of the response object
+                    for (var key in res) {
+                        if (res.hasOwnProperty(key)) {
+                            var propertyValue = res[key];
+                            var detailItem = document.createElement('div');
+                            detailItem.textContent = key + ': ' + propertyValue;
+                            categoryInfoElement.appendChild(detailItem);
+                        }
+                    }
+                },
+
+                error: function (res) {
+                    alert("Bad thing happened! " + res.statusText);
                 }
-            }
-        },
-        error: function (res) {
-            alert("Bad thing happened! " + res.statusText);
+            });
         }
-    });
-}
 
 
