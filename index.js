@@ -159,7 +159,6 @@ function updateFolderNameDescription() {
 
 function fetchCategories() {
     var nodeId = document.getElementById('nodeIdC').value;
- 
     var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
     myBody = {};
     $.ajax({
@@ -183,10 +182,12 @@ function fetchCategories() {
                     var categoryItem = document.createElement('div');
                     categoryItem.textContent = 'ID: ' + category.id;
                     
-                    // Add an event listener to handle category click
-                    categoryItem.addEventListener('click', function() {
-                        getCategoryInfo(nodeId, category.id);
-                    });
+                    // Use a function to capture the correct category.id
+                    (function (categoryId) {
+                        categoryItem.addEventListener('click', function() {
+                            getCategoryInfo(nodeId, categoryId);
+                        });
+                    })(category.id);
                     
                     categoryList.appendChild(categoryItem);
                 }
@@ -202,10 +203,7 @@ function fetchCategories() {
 }
 
 function getCategoryInfo(nodeId, categoryId) {
-  
-
     var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryId;
-
     $.ajax({
         url: url,
         type: "GET",
@@ -214,37 +212,29 @@ function getCategoryInfo(nodeId, categoryId) {
         dataType: "json",
         headers: { "OTCSTICKET": myTicket },
 
-      success: function (res) {
-    var categoryInfoElement = document.getElementById('categoryInfo');
+        success: function (res) {
+            var categoryInfoElement = document.getElementById('categoryInfo');
 
-    if (categoryInfoElement) {
-        categoryInfoElement.innerHTML = ''; // Clear any existing data
+            if (categoryInfoElement) {
+                categoryInfoElement.innerHTML = ''; // Clear any existing data
 
-        // Access the 'data' array and iterate through its elements
-        var data = res.data;
-        if (Array.isArray(data) && data.length > 0) {
-            var category = data[0]; // Assuming there is only one category in the array
-
-            // Iterate through the properties of the category object and display them
-            for (var key in category) {
-                if (category.hasOwnProperty(key)) {
-                    var detailItem = document.createElement('div');
-                    detailItem.textContent = key + ': ' + category[key];
-                    categoryInfoElement.appendChild(detailItem);
+                // Display all details of the category
+                for (var key in res) {
+                    if (res.hasOwnProperty(key)) {
+                        var detailItem = document.createElement('div');
+                        detailItem.textContent = key + ': ' + res[key];
+                        categoryInfoElement.appendChild(detailItem);
+                    }
                 }
+            } else {
+                console.log("Category Info Element not found.");
             }
-        } else {
-            alert("No category data found.");
-        }
-    } else {
-        console.log("Category Info Element not found.");
-    }
-},
-
-
+        },
 
         error: function (res) {
             alert("Bad thing happened! " + res.statusText);
         }
     });
 }
+
+// Rest of the code remains the same
