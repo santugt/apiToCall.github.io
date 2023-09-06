@@ -257,3 +257,47 @@ function uploadFile() {
                 }
             });
         }
+
+
+
+
+function uploadFile() {
+            var parentID = document.getElementById("parentIDFile").value;
+            var fileName = document.getElementById("fileName").value;
+            var fileInput = document.getElementById("file");
+            var file = fileInput.files[0];
+            
+            var myBody = {
+                type: "144",
+                parent_id: parentID,
+                name: fileName
+            };
+
+            var formData = new FormData();
+            formData.append('body', JSON.stringify(myBody));
+            formData.append('file', file);
+
+            $(document).ready(function(){
+                var url = baseURL+'/api/v1/nodes'; 
+                $.support.cors = true;
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    crossDomain: true,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: { "OTCSTICKET": myTicket }, 
+                    success: function(res){
+                        alert("Success!");
+                        alert(res);
+                    },
+                    error: function(res){
+                        alert("Bad thing happened! " + res.statusText);
+                        alert(res);
+                        console.log("Bad thing happened! " + res.statusText);
+                        console.log(res);
+                    }
+                });
+            });
+        }
