@@ -156,7 +156,7 @@ function fetchCategories() {
             });
         }
 
-      function fetchCategoryDetails(nodeId, categoryId) {
+   function fetchCategoryDetails(nodeId, categoryId) {
     var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryId;
     myBody = {};
     $.ajax({
@@ -168,42 +168,40 @@ function fetchCategories() {
         headers: { "OTCSTICKET": myTicket },
 
         success: function (res) {
-            alert(JSON.stringify(res)); // Display the entire response object as a JSON string
-
             var categoryInfoElement = document.getElementById('categoryInfo');
             categoryInfoElement.innerHTML = ''; // Clear any existing data
 
-            // Display the Node ID
-            var nodeIdElement = document.createElement('div');
-            nodeIdElement.textContent = 'Node ID: ' + nodeId;
-            categoryInfoElement.appendChild(nodeIdElement);
+            // Create a table element
+            var table = document.createElement('table');
 
-            // Display the Category ID
-            var categoryIdElement = document.createElement('div');
-            categoryIdElement.textContent = 'Category ID: ' + categoryId;
-            categoryInfoElement.appendChild(categoryIdElement);
+            // Add Node ID and Category ID as the first two rows in the table
+            var nodeIdRow = table.insertRow();
+            var nodeIdCell1 = nodeIdRow.insertCell(0);
+            nodeIdCell1.textContent = 'Node ID:';
+            var nodeIdCell2 = nodeIdRow.insertCell(1);
+            nodeIdCell2.textContent = nodeId;
 
-            // Display attributes and their values within the 'data' object
+            var categoryIdRow = table.insertRow();
+            var categoryIdCell1 = categoryIdRow.insertCell(0);
+            categoryIdCell1.textContent = 'Category ID:';
+            var categoryIdCell2 = categoryIdRow.insertCell(1);
+            categoryIdCell2.textContent = categoryId;
+
+            // Display attributes and their values within the 'data' object in the table
             var data = res.data;
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
                     var attributeValue = data[key];
-                    var detailItem = document.createElement('div');
-                    detailItem.textContent = key + ': ' + attributeValue;
-                    categoryInfoElement.appendChild(detailItem);
+                    var row = table.insertRow();
+                    var cell1 = row.insertCell(0);
+                    cell1.textContent = key;
+                    var cell2 = row.insertCell(1);
+                    cell2.textContent = attributeValue;
                 }
             }
 
-            // Display attributes and their values within the 'definitions' object
-            var definitions = res.definitions;
-            for (var key in definitions) {
-                if (definitions.hasOwnProperty(key)) {
-                    var attributeValue = definitions[key];
-                    var detailItem = document.createElement('div');
-                    detailItem.textContent = key + ': ' + JSON.stringify(attributeValue); // Convert nested object to string
-                    categoryInfoElement.appendChild(detailItem);
-                }
-            }
+            // Append the table to the categoryInfoElement
+            categoryInfoElement.appendChild(table);
         },
 
         error: function (res) {
