@@ -91,22 +91,19 @@
 
 
     <h1>File Upload</h1>
-    <form enctype="multipart/form-data">
-        <label for="file">Choose a file:</label>
-        <input type="file" id="file" name="file" accept=".pdf, .doc, .docx" required>
-        <br>
-
-        <label for="customName">File Name (optional):</label>
-        <input type="text" id="customName" name="customName">
-        <br>
-
+ 
+    <form id="fileUploadForm">
         <label for="parentIDFile">Parent ID:</label>
         <input type="text" id="parentIDFile" name="parentIDFile" required>
         <br>
-
-        <input type="button" value="Upload File" onclick="uploadFile()">
+        <label for="fileName">File Name (Optional):</label>
+        <input type="text" id="fileName" name="fileName">
+        <br>
+        <label for="file">Choose a file:</label>
+        <input type="file" id="file" name="file" required>
+        <br>
+        <button type="button" onclick="uploadFile()">Upload File</button>
     </form>
-           
            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://santugt.github.io/apiToCall.github.io/index.js"></script>
 </body>
