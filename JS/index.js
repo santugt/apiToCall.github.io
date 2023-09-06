@@ -39,35 +39,34 @@
         }
 
 function updateFolderNameDescription() {
-        
-            var name = document.getElementById("name").value;
-            var description = document.getElementById("description").value;
-            var nodeId = document.getElementById("nodeIdF").value;
-    
-            var myBody = {
-                description: description,
-                name: name
-            };
-    
-            var url = baseURL + '/api/v1/nodes/' + nodeId;
-    
-            $.ajax({
-                url: url,
-                type: "PUT",
-                crossDomain: true,
-                data: myBody,
-                dataType: "json",
-                
-                headers: { "OTCSTICKET": myTicket },
-                success: function (res) {
-                    alert("success!");
-                    alert("Custom Folder object id = " + res);
-                },
-                error: function (res) {
-                    alert("Bad thing happened! " + res.statusText);
-                }
-            });
-        }
+alert(myTicket);
+
+
+
+  var myBody = { type: "0", parent_id: "2000", name: "Project - "};
+
+
+$(document).ready(function(){
+
+var url = baseURL+'/api/v1/nodes';
+$.support.cors = true;
+$.ajax({
+url:url,
+type:"POST",
+crossDomain: true,
+data:myBody,
+dataType:"json",
+headers: { "OTCSTICKET": myTicket },
+success:function(res){
+alert("success!");
+alert("Folder object id = " + res.id);
+},
+error:function(res){
+alert("Bad thing happened! " + res.statusText);
+}
+});
+});
+}
 
 
 
