@@ -92,40 +92,58 @@ alert("Bad thing happened! " + res.statusText);
 }
 
 
+// function updateFolderNameDescription() {
+//     // Get values from input fields
+//     var nodeId = document.getElementById('nodeIdF').value;
+//     var name = document.getElementById('name').value;
+//     var description = document.getElementById('description').value;
+
+//     // Create the request body
+//     var myBody = {
+//         name: name,
+//         description: description,
+//     };
+
+//     // Assuming you have 'baseURL' and 'myTicket' defined somewhere in your code
+//     var url = baseURL + '/v1/nodes/' + nodeId;
+
+//     $.support.cors = true;
+//     $.ajax({
+//         url: url,
+//         type: "PUT",
+//         crossDomain: true,
+//         data: myBody, // Convert the object to JSON
+//         dataType: "jsonp",
+//         headers: { "OTCSTICKET": myTicket,
+//                "Content-Type": "application/x-www-form-urlencoded",
+//                  },
+//         success: function (res) {
+//             alert("Success!");
+//         },
+//         error: function (res) {
+//             alert("Bad thing happened! " + res.statusText);
+//         }
+//     });
+// }
 function updateFolderNameDescription() {
-    // Get values from input fields
-    var nodeId = document.getElementById('nodeIdF').value;
+var url = baseURL + '/v1/nodes/' + nodeId;
+         var nodeId = document.getElementById('nodeIdF').value;
     var name = document.getElementById('name').value;
-    var description = document.getElementById('description').value;
-
-    // Create the request body
-    var myBody = {
-        name: name,
-        description: description,
-    };
-
-    // Assuming you have 'baseURL' and 'myTicket' defined somewhere in your code
-    var url = baseURL + '/v1/nodes/' + nodeId;
-
-    $.support.cors = true;
-    $.ajax({
-        url: url,
-        type: "PUT",
-        crossDomain: true,
-        data: myBody, // Convert the object to JSON
-        dataType: "jsonp",
-        headers: { "OTCSTICKET": myTicket,
-               "Content-Type": "application/x-www-form-urlencoded",
-                 },
-        success: function (res) {
-            alert("Success!");
-        },
-        error: function (res) {
-            alert("Bad thing happened! " + res.statusText);
-        }
-    });
+     var description = document.getElementById('description').value;
+var formData = {description: description, name: name};
+$.ajax({
+url: url,
+type: "PUT",
+headers: { 'OTCSTicket': myTicket},
+contentType: "application/x-www-form-urlencoded",
+data: formData,
+}).done(function(data){
+console.log(data);
+})
+.fail(function(data){
+console.log(data.responseJSON.error);
+});
 }
-
 
 
 
