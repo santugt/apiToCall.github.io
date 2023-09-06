@@ -196,8 +196,7 @@ function fetchCategories() {
 }
 
 function fetchCategoriesOfNode(nodeId, categoryID) {
-   
-    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/'+ categoryID;
+    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryID;
     myBody = {};
     $.ajax({
         url: url,
@@ -206,13 +205,20 @@ function fetchCategoriesOfNode(nodeId, categoryID) {
         data: myBody,
         dataType: "json",
         headers: { "OTCSTICKET": myTicket },
- success: function (res) {
-          alert(res);
-         console.log(res.data);
- },
-             error: function (res) {
+        success: function (res) {
+            alert(JSON.stringify(res)); 
+           
+            for (var key in res) {
+                if (res.hasOwnProperty(key)) {
+                    var propertyValue = res[key];
+                    console.log("Name: " + key + ", Value: " + propertyValue);
+                }
+            }
+        },
+        error: function (res) {
             alert("Bad thing happened! " + res.statusText);
         }
     });
 }
+
 
