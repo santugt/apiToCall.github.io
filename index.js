@@ -207,6 +207,8 @@ function fetchCategoriesOfNode(nodeId, categoryID) {
         dataType: "json",
         headers: { "OTCSTICKET": myTicket },
  success: function (res) {
+          alert(res);
+         console.log(res.data);
  },
              error: function (res) {
             alert("Bad thing happened! " + res.statusText);
