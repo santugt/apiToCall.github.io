@@ -112,7 +112,9 @@ function updateFolderNameDescription() {
         crossDomain: true,
         data: myBody, // Convert the object to JSON
         dataType: "json",
-        headers: { "OTCSTICKET": myTicket },
+        headers: { "OTCSTICKET": myTicket,
+               "Content-Type": "application/x-www-form-urlencoded",
+                 },
         success: function (res) {
             alert("Success!");
         },
