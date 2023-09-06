@@ -1,15 +1,4 @@
 
-$.ajaxSetup({
-            crossDomain: true,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("OTCSTICKET", myTicket);
-            },
-            dataType: "json",
-            contentType: "application/json",
-        });
-
-
-
 
 
 
@@ -121,7 +110,7 @@ function updateFolderNameDescription() {
         url: url,
         type: "PUT",
         crossDomain: true,
-        data: JSON.stringify(myBody), // Convert the object to JSON
+        data: myBody, // Convert the object to JSON
         dataType: "json",
         headers: { "OTCSTICKET": myTicket },
         success: function (res) {
