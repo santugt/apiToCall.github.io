@@ -219,7 +219,7 @@ function fetchCategories() {
 function uploadFile() {
             var fileInput = document.getElementById("file");
             var customNameInput = document.getElementById("customName");
-            var parentIDInput = document.getElementById("parentID");
+            var parentIDInput = document.getElementById("parentIDFile");
             var file = fileInput.files[0];
             var customName = customNameInput.value;
             var parentID = parentIDInput.value;
