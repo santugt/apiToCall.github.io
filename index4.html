@@ -90,6 +90,20 @@
     </div>
 
 
+     <h1>Upload Document</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+        <label for="file">Select a File:</label>
+        <input type="file" id="file" name="file" accept=".pdf, .doc, .docx">
+        <br>
+        <label for="name">Document Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter document name">
+        <br>
+        <label for="parentID">Parent ID:</label>
+        <input type="text" id="parentID" name="parentID" placeholder="Enter parent ID">
+        <br>
+        <input type="button" value="Upload" onclick="uploadDocument()">
+    </form>
+
            
            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://santugt.github.io/apiToCall.github.io/index.js"></script>
