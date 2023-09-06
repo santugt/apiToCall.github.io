@@ -252,7 +252,7 @@ function uploadFile() {
                     alert("File uploaded successfully!");
                 },
                 error: function (res) {
-                    console.log(res);
+                   
                     alert("Bad thing happened! " + res.statusText);
                 }
             });
