@@ -89,7 +89,7 @@ function updateFolderNameDescription() {
     };
 
     // Assuming you have 'baseURL' and 'myTicket' defined somewhere in your code
-    var url = baseURL + '/v1/nodes/' + nodeId;
+    var url = 'https://cors-anywhere.herokuapp.com/'+baseURL + '/v1/nodes/' + nodeId;
 
     $.support.cors = true;
     $.ajax({
