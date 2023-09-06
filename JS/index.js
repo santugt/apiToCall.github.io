@@ -23,7 +23,6 @@ $.ajaxSetup({
 
 
 
-
 var myTicket;
         
         
