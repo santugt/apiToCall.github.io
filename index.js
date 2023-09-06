@@ -156,7 +156,7 @@ function fetchCategories() {
             });
         }
 
-       function fetchCategoryDetails(nodeId, categoryId) {
+      function fetchCategoryDetails(nodeId, categoryId) {
     var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryId;
     myBody = {};
     $.ajax({
@@ -173,7 +173,17 @@ function fetchCategories() {
             var categoryInfoElement = document.getElementById('categoryInfo');
             categoryInfoElement.innerHTML = ''; // Clear any existing data
 
-            // Access the 'data' object within the response
+            // Display the Node ID
+            var nodeIdElement = document.createElement('div');
+            nodeIdElement.textContent = 'Node ID: ' + nodeId;
+            categoryInfoElement.appendChild(nodeIdElement);
+
+            // Display the Category ID
+            var categoryIdElement = document.createElement('div');
+            categoryIdElement.textContent = 'Category ID: ' + categoryId;
+            categoryInfoElement.appendChild(categoryIdElement);
+
+            // Display attributes and their values within the 'data' object
             var data = res.data;
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
@@ -184,7 +194,7 @@ function fetchCategories() {
                 }
             }
 
-            // Access the 'definitions' object within the response
+            // Display attributes and their values within the 'definitions' object
             var definitions = res.definitions;
             for (var key in definitions) {
                 if (definitions.hasOwnProperty(key)) {
@@ -201,6 +211,3 @@ function fetchCategories() {
         }
     });
 }
-
-
-
