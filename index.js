@@ -218,13 +218,20 @@ function getCategoryInfo(nodeId, categoryId) {
             if (categoryInfoElement) {
                 categoryInfoElement.innerHTML = ''; // Clear any existing data
 
-                // Display all details of the category
-                for (var key in res) {
-                    if (res.hasOwnProperty(key)) {
-                        var detailItem = document.createElement('div');
-                        detailItem.textContent = key + ': ' + res[key];
-                        categoryInfoElement.appendChild(detailItem);
+                if (res.data && res.data.length > 0) {
+                    // Assuming the data is an array, iterate through it
+                    var category = res.data[0]; // Assuming there is only one category in the array
+
+                    // Iterate through the properties of the category object and display them
+                    for (var key in category) {
+                        if (category.hasOwnProperty(key)) {
+                            var detailItem = document.createElement('div');
+                            detailItem.textContent = key + ': ' + category[key];
+                            categoryInfoElement.appendChild(detailItem);
+                        }
                     }
+                } else {
+                    alert("No category data found.");
                 }
             } else {
                 console.log("Category Info Element not found.");
@@ -236,5 +243,6 @@ function getCategoryInfo(nodeId, categoryId) {
         }
     });
 }
+
 
 // Rest of the code remains the same
