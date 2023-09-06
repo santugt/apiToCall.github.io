@@ -197,7 +197,7 @@ function fetchCategories() {
 
 function fetchCategoriesOfNode(nodeId, categoryID) {
    
-    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories'+ categoryID;
+    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/'+ categoryID;
     myBody = {};
     $.ajax({
         url: url,
