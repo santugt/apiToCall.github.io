@@ -182,7 +182,7 @@ function fetchCategories() {
                     var categoryItem = document.createElement('div');
                     categoryItem.textContent = 'ID: ' + category.id;
                 }
-                    getCategoryInfo(nodeId, categoryId);
+                  fetchCategoriesOfNode(nodeId, category.id)
                 }
          else {
                 alert("No data found.");
@@ -195,6 +195,22 @@ function fetchCategories() {
     });
 }
 
+function fetchCategoriesOfNode(nodeId, categoryID) {
+   
+    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories'+ categoryID;
+    myBody = {};
+    $.ajax({
+        url: url,
+        type: "GET",
+        crossDomain: true,
+        data: myBody,
+        dataType: "json",
+        headers: { "OTCSTICKET": myTicket },
+ success: function (res) {
+ },
+             error: function (res) {
+            alert("Bad thing happened! " + res.statusText);
+        }
+    });
+}
 
-
-// Rest of the code remains the same
