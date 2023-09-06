@@ -132,7 +132,7 @@ function updateFolderNameDescription() {
     var name = document.getElementById('name').value;
      var description = document.getElementById('description').value;
 var formData = {description: description, name: name};
-        var url = baseURL + 'api/v1/nodes/' + nodeId;
+        var url = baseURL + 'api/v2/nodes/' + nodeId;
 $.ajax({
 url: url,
 type: "PUT",
