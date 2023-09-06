@@ -1,11 +1,18 @@
-function fCreateFolder() {
+function CreateFolder() {
 alert(myTicket);
 
 
 
-  var myBody = { type: "0", parent_id: "2000", name: "Project - "};
+  
+            var parentID = document.getElementById("parentID").value;
+            var folderName = document.getElementById("folderName").value;
 
-
+            // Create the request body
+            var myBody = {
+                type: '0',
+                parent_id: parentID,
+                name: folderName
+            };
 $(document).ready(function(){
 
 var url = baseURL+'/api/v1/nodes';
