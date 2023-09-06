@@ -1,4 +1,30 @@
-        var myTicket;
+
+$.ajaxSetup({
+            crossDomain: true,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("OTCSTICKET", myTicket);
+            },
+            dataType: "json",
+            contentType: "application/json",
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var myTicket;
         
         
         var baseURL;
