@@ -214,24 +214,33 @@ function getCategoryInfo(nodeId, categoryId) {
         dataType: "json",
         headers: { "OTCSTICKET": myTicket },
 
-       success: function (res) {
+      success: function (res) {
     var categoryInfoElement = document.getElementById('categoryInfo');
-    
+
     if (categoryInfoElement) {
         categoryInfoElement.innerHTML = ''; // Clear any existing data
-    
-        // Display all details of the category
-        for (var key in res) {
-            if (res.hasOwnProperty(key)) {
-                var detailItem = document.createElement('div');
-                detailItem.textContent = key + ': ' + res[key];
-                categoryInfoElement.appendChild(detailItem);
+
+        // Access the 'data' array and iterate through its elements
+        var data = res.data;
+        if (Array.isArray(data) && data.length > 0) {
+            var category = data[0]; // Assuming there is only one category in the array
+
+            // Iterate through the properties of the category object and display them
+            for (var key in category) {
+                if (category.hasOwnProperty(key)) {
+                    var detailItem = document.createElement('div');
+                    detailItem.textContent = key + ': ' + category[key];
+                    categoryInfoElement.appendChild(detailItem);
+                }
             }
+        } else {
+            alert("No category data found.");
         }
     } else {
         console.log("Category Info Element not found.");
     }
 },
+
 
 
         error: function (res) {
