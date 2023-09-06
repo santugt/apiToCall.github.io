@@ -221,7 +221,7 @@ const fileInput = document.getElementById("file");
 const file = fileInput.files[0];
 
                 
-    var name = document.getElementById("name").value;
+    var name = document.getElementById("fileName").value;
      var parentID =document.getElementById("parentID").value;
     var formData = new FormData();
     formData.append("file", file);
