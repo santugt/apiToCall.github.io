@@ -28,7 +28,7 @@
                     alert("OTCSTicket is Generated");
                         
                     myTicket = res.ticket;
-                        window.location.href = "https://santugt.github.io/apiToCall.github.io/HTML/buttons.html";
+                       
                 },
                 error: function (res) {
                     document.getElementById("messageDiv").innerHTML = "Something Error happened! " + res.statusText;
