@@ -127,11 +127,12 @@ alert("Bad thing happened! " + res.statusText);
 // }
 function updateFolderNameDescription() {
 
-         var nodeId = document.getElementById('nodeIdF').value;
-        var url = baseURL + '/v1/nodes/' + nodeId;
+        var nodeId = document.getElementById('nodeIdF').value;
+        
     var name = document.getElementById('name').value;
      var description = document.getElementById('description').value;
 var formData = {description: description, name: name};
+        var url = baseURL + 'api/v1/nodes/' + nodeId;
 $.ajax({
 url: url,
 type: "PUT",
