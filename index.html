@@ -44,7 +44,20 @@
         </form>
         <div id="messageDiv"></div>
             
-
+ <h1>Create a Folder</h1>
+    <form id="folderForm">
+       
+        <div>
+            <label for="parentID">Parent ID:</label>
+            <input type="text" id="parentID" name="parentID" placeholder="Enter Parent ID">
+        </div>
+        <div>
+            <label for="folderName">Folder Name:</label>
+            <input type="text" id="folderName" name="folderName" placeholder="Enter Folder Name">
+        </div>
+        <button type="button" onclick="CreateFolder()">Create Folder</button>
+    </form>
+        
        
    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
