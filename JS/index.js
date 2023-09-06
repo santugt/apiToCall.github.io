@@ -76,42 +76,38 @@ alert("Bad thing happened! " + res.statusText);
 }
 
 
-function CreateFolder() {
-alert(myTicket);
+function updateFolderNameDescription() {
+    // Get values from input fields
+    var nodeId = document.getElementById('nodeIdF').value;
+    var name = document.getElementById('name').value;
+    var description = document.getElementById('description').value;
 
+    // Create the request body
+    var myBody = {
+        name: name,
+        description: description,
+    };
 
+    // Assuming you have 'baseURL' and 'myTicket' defined somewhere in your code
+    var url = baseURL + '/v1/nodes/' + nodeId;
 
-  
-            var parentID = document.getElementById("parentID").value;
-            var folderName = document.getElementById("folderName").value;
-
-            // Create the request body
-            var myBody = {
-                type: '0',
-                parent_id: parentID,
-                name: folderName
-            };
-$(document).ready(function(){
-
-var url = baseURL+'/api/v1/nodes';
-$.support.cors = true;
-$.ajax({
-url:url,
-type:"POST",
-crossDomain: true,
-data:myBody,
-dataType:"json",
-headers: { "OTCSTICKET": myTicket },
-success:function(res){
-alert("success!");
-alert("Folder object id = " + res.id);
-},
-error:function(res){
-alert("Bad thing happened! " + res.statusText);
+    $.support.cors = true;
+    $.ajax({
+        url: url,
+        type: "PUT",
+        crossDomain: true,
+        data: JSON.stringify(myBody), // Convert the object to JSON
+        dataType: "json",
+        headers: { "OTCSTICKET": myTicket },
+        success: function (res) {
+            alert("Success!");
+        },
+        error: function (res) {
+            alert("Bad thing happened! " + res.statusText);
+        }
+    });
 }
-});
-});
-}
+
 
 
 
