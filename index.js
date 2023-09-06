@@ -209,3 +209,45 @@ function fetchCategories() {
         }
     });
 }
+
+
+
+
+
+
+
+function uploadDocument() {
+const fileInput = document.getElementById("file");
+const file = fileInput.files[0];
+
+                
+    var name = document.getElementById("name").value;
+     var parentID =document.getElementById("parentID").value;
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append('type',144);
+    formData.append('parent_id', parentID);
+    formData.append("name", name);
+
+    var url = baseURL + '/api/v1/nodes/'
+
+    $.ajax({
+        url: url,
+        
+	type: "POST",
+        crossDomain: true,
+        data: formData,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        // contentType: "application/x-www-form-urlencoded",
+        
+        headers: { 'OTCSTicket':  myTicket },
+        success: function (res) {
+           console.log(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    });
+}
