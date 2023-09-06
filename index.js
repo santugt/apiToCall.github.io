@@ -181,17 +181,10 @@ function fetchCategories() {
                     var category = data[i];
                     var categoryItem = document.createElement('div');
                     categoryItem.textContent = 'ID: ' + category.id;
-                    
-                    // Use a function to capture the correct category.id
-                    (function (categoryId) {
-                        categoryItem.addEventListener('click', function() {
-                            getCategoryInfo(nodeId, categoryId);
-                        });
-                    })(category.id);
-                    
-                    categoryList.appendChild(categoryItem);
                 }
-            } else {
+                    getCategoryInfo(nodeId, categoryId);
+                }
+         else {
                 alert("No data found.");
             }
         },
@@ -202,47 +195,6 @@ function fetchCategories() {
     });
 }
 
-function getCategoryInfo(nodeId, categoryId) {
-    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryId;
-    $.ajax({
-        url: url,
-        type: "GET",
-        crossDomain: true,
-        data: {},
-        dataType: "json",
-        headers: { "OTCSTICKET": myTicket },
-
-        success: function (res) {
-            var categoryInfoElement = document.getElementById('categoryInfo');
-
-            if (categoryInfoElement) {
-                categoryInfoElement.innerHTML = ''; // Clear any existing data
-
-                if (res.data && res.data.length > 0) {
-                    // Assuming the data is an array, iterate through it
-                    var category = res.data[0]; // Assuming there is only one category in the array
-
-                    // Iterate through the properties of the category object and display them
-                    for (var key in category) {
-                        if (category.hasOwnProperty(key)) {
-                            var detailItem = document.createElement('div');
-                            detailItem.textContent = key + ': ' + category[key];
-                            categoryInfoElement.appendChild(detailItem);
-                        }
-                    }
-                } else {
-                    alert("No category data found.");
-                }
-            } else {
-                console.log("Category Info Element not found.");
-            }
-        },
-
-        error: function (res) {
-            alert("Bad thing happened! " + res.statusText);
-        }
-    });
-}
 
 
 // Rest of the code remains the same
