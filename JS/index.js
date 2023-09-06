@@ -38,7 +38,7 @@
 
         }
 
-function updateFolderNameDescription() {
+function fCreateFolder() {
 alert(myTicket);
 
 
