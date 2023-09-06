@@ -234,7 +234,7 @@ function uploadFile() {
             formData.append('file', file);
 
             $(document).ready(function(){
-                var url = baseURL+'/api/v1/nodes'; // Replace 'baseURL' with your actual base URL
+                var url = baseURL+'/api/v1/nodes'; 
                 $.support.cors = true;
                 $.ajax({
                     url: url,
@@ -243,16 +243,15 @@ function uploadFile() {
                     data: formData,
                     processData: false,
                     contentType: false,
-                    headers: { "OTCSTICKET": myTicket }, // Replace 'myTicket' with your actual ticket value
+                    headers: { "OTCSTICKET": myTicket },
                     success: function(res){
                         alert("Success!");
                         alert(res);
                     },
                     error: function(res){
-                        alert("Bad thing happened! " + res.statusText);
+                        alert("Error happened! " + res.statusText);
                         alert(res);
-                        console.log("Bad thing happened! " + res.statusText);
-                        console.log(res);
+                        
                     }
                 });
             });
