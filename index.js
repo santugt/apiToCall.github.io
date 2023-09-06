@@ -216,38 +216,44 @@ function fetchCategories() {
 
 
 
-function uploadDocument() {
-const fileInput = document.getElementById("file");
-const file = fileInput.files[0];
+function uploadFile() {
+            var fileInput = document.getElementById("file");
+            var customNameInput = document.getElementById("customName");
+            var parentIDInput = document.getElementById("parentID");
+            var file = fileInput.files[0];
+            var customName = customNameInput.value;
+            var parentID = parentIDInput.value;
 
-                
-    var name = document.getElementById("fileName").value;
-     var parentID =document.getElementById("parentID").value;
-    var formData = new FormData();
-    formData.append("file", file);
-    formData.append('type',144);
-    formData.append('parent_id', parentID);
-    formData.append("name", name);
-
-    var url = baseURL + '/api/v1/nodes/'
-
-    $.ajax({
-        url: url,
-        
-	type: "POST",
-        crossDomain: true,
-        data: formData,
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        // contentType: "application/x-www-form-urlencoded",
-        
-        headers: { 'OTCSTicket':  myTicket },
-        success: function (res) {
-           console.log(res);
-        },
-        error: function (res) {
-            console.log(res);
+            // Call your upload function with the file, customName, and parentID
+            fCreateDoc(file, customName, parentID);
         }
-    });
-}
+
+        function fCreateDoc(file, customName, parentID) {
+            var formData = new FormData();
+            formData.append("file", file);
+            formData.append('type', 144);
+            formData.append('parent_id', parentID);
+            if (customName) {
+                formData.append("name", customName);
+            }
+
+            var url = baseURL + '/api/v1/nodes';
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                crossDomain: true,
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'OTCSTICKET': myTicket },
+                success: function (res) {
+                    console.log(res);
+                    alert("File uploaded successfully!");
+                },
+                error: function (res) {
+                    console.log(res);
+                    alert("Bad thing happened! " + res.statusText);
+                }
+            });
+        }
