@@ -52,17 +52,7 @@ var myTicket;
 
         }
 
-function solve(){
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-       
-        }
-    };
-    xhttp.open("GET", "https://cors-anywhere.herokuapp.com/"+baseURL , true);
-    xhttp.send();
-}
-solve()
+
 
 function CreateFolder() {
 alert(myTicket);
@@ -123,7 +113,7 @@ function updateFolderNameDescription() {
         type: "PUT",
         crossDomain: true,
         data: myBody, // Convert the object to JSON
-        dataType: "json",
+        dataType: "jsonp",
         headers: { "OTCSTICKET": myTicket,
                "Content-Type": "application/x-www-form-urlencoded",
                  },
