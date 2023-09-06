@@ -57,7 +57,7 @@ function updateFolderNameDescription() {
                 crossDomain: true,
                 data: myBody,
                 dataType: "json",
-                contentType: "application/x-www-form-urlencoded",
+                
                 headers: { "OTCSTICKET": myTicket },
                 success: function (res) {
                     alert("success!");
