@@ -156,38 +156,51 @@ function fetchCategories() {
             });
         }
 
-        function fetchCategoryDetails(nodeId, categoryId) {
-            var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryId;
-            myBody = {};
-            $.ajax({
-                url: url,
-                type: "GET",
-                crossDomain: true,
-                data: myBody,
-                dataType: "json",
-                headers: { "OTCSTICKET": myTicket },
+       function fetchCategoryDetails(nodeId, categoryId) {
+    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryId;
+    myBody = {};
+    $.ajax({
+        url: url,
+        type: "GET",
+        crossDomain: true,
+        data: myBody,
+        dataType: "json",
+        headers: { "OTCSTICKET": myTicket },
 
-                success: function (res) {
-                    alert(JSON.stringify(res)); // Display the entire response object as a JSON string
+        success: function (res) {
+            alert(JSON.stringify(res)); // Display the entire response object as a JSON string
 
-                    var categoryInfoElement = document.getElementById('categoryInfo');
-                    categoryInfoElement.innerHTML = ''; // Clear any existing data
+            var categoryInfoElement = document.getElementById('categoryInfo');
+            categoryInfoElement.innerHTML = ''; // Clear any existing data
 
-                    // Iterate through the properties of the response object
-                    for (var key in res) {
-                        if (res.hasOwnProperty(key)) {
-                            var propertyValue = res[key];
-                            var detailItem = document.createElement('div');
-                            detailItem.textContent = key + ': ' + propertyValue;
-                            categoryInfoElement.appendChild(detailItem);
-                        }
-                    }
-                },
-
-                error: function (res) {
-                    alert("Bad thing happened! " + res.statusText);
+            // Access the 'data' object within the response
+            var data = res.data;
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    var attributeValue = data[key];
+                    var detailItem = document.createElement('div');
+                    detailItem.textContent = key + ': ' + attributeValue;
+                    categoryInfoElement.appendChild(detailItem);
                 }
-            });
+            }
+
+            // Access the 'definitions' object within the response
+            var definitions = res.definitions;
+            for (var key in definitions) {
+                if (definitions.hasOwnProperty(key)) {
+                    var attributeValue = definitions[key];
+                    var detailItem = document.createElement('div');
+                    detailItem.textContent = key + ': ' + JSON.stringify(attributeValue); // Convert nested object to string
+                    categoryInfoElement.appendChild(detailItem);
+                }
+            }
+        },
+
+        error: function (res) {
+            alert("Bad thing happened! " + res.statusText);
         }
+    });
+}
+
 
 
