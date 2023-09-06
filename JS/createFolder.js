@@ -159,9 +159,7 @@ function updateFolderNameDescription() {
 
 function fetchCategories() {
     var nodeId = document.getElementById('nodeIdC').value;
-    var baseURL = 'https://example.com'; // Replace with your actual base URL
-    var myTicket = 'your-ticket-value'; // Replace with your actual OTCSTICKET value
-
+ 
     var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
     myBody = {};
     $.ajax({
