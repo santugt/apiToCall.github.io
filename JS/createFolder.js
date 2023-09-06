@@ -114,43 +114,131 @@ function updateFolderNameDescription() {
 
 
 
-function fetchCategories() {
-            var nodeId = document.getElementById('nodeIdC').value;
+// function fetchCategories() {
+//             var nodeId = document.getElementById('nodeIdC').value;
 
            
-            var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
-            myBody={};
-            $.ajax({
-                url: url,
-                type: "GET",
-                crossDomain: true,
-                data: myBody,
-                dataType: "json",
-                headers: { "OTCSTICKET": myTicket },
+//             var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
+//             myBody={};
+//             $.ajax({
+//                 url: url,
+//                 type: "GET",
+//                 crossDomain: true,
+//                 data: myBody,
+//                 dataType: "json",
+//                 headers: { "OTCSTICKET": myTicket },
 
-               success: function (res) {
-    var data = res.data;
+//                success: function (res) {
+//     var data = res.data;
 
-    if (data && data.length > 0) {
-        var categoryList = document.getElementById('categoryList');
-        categoryList.innerHTML = ''; // Clear any existing data
+//     if (data && data.length > 0) {
+//         var categoryList = document.getElementById('categoryList');
+//         categoryList.innerHTML = ''; // Clear any existing data
 
-        // Iterate through the data and display "id"
-        for (var i = 0; i < data.length; i++) {
-            var category = data[i];
-            var categoryItem = document.createElement('div');
-            categoryItem.textContent = 'ID: ' + category.id;
-            categoryList.appendChild(categoryItem);
+//         // Iterate through the data and display "id"
+//         for (var i = 0; i < data.length; i++) {
+//             var category = data[i];
+//             var categoryItem = document.createElement('div');
+//             categoryItem.textContent = 'ID: ' + category.id;
+//             categoryList.appendChild(categoryItem);
+//         }
+//     } else {
+//         alert("No data found.");
+//     }
+// },
+
+//                 error: function (res) {
+//                     alert("Bad thing happened! " + res.statusText);
+//                 }
+
+               
+//             });
+//         }
+
+
+
+function fetchCategories() {
+    var nodeId = document.getElementById('nodeIdC').value;
+    var baseURL = 'https://example.com'; // Replace with your actual base URL
+    var myTicket = 'your-ticket-value'; // Replace with your actual OTCSTICKET value
+
+    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories';
+    myBody = {};
+    $.ajax({
+        url: url,
+        type: "GET",
+        crossDomain: true,
+        data: myBody,
+        dataType: "json",
+        headers: { "OTCSTICKET": myTicket },
+
+        success: function (res) {
+            var data = res.data;
+
+            if (data && data.length > 0) {
+                var categoryList = document.getElementById('categoryList');
+                categoryList.innerHTML = ''; // Clear any existing data
+
+                // Iterate through the data and display "id"
+                for (var i = 0; i < data.length; i++) {
+                    var category = data[i];
+                    var categoryItem = document.createElement('div');
+                    categoryItem.textContent = 'ID: ' + category.id;
+                    
+                    // Add an event listener to handle category click
+                    categoryItem.addEventListener('click', function() {
+                        getCategoryInfo(nodeId, category.id);
+                    });
+                    
+                    categoryList.appendChild(categoryItem);
+                }
+            } else {
+                alert("No data found.");
+            }
+        },
+
+        error: function (res) {
+            alert("Bad thing happened! " + res.statusText);
+        }
+    });
+}
+
+function getCategoryInfo(nodeId, categoryId) {
+  
+
+    var url = baseURL + '/api/v1/nodes/' + nodeId + '/categories/' + categoryId;
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        crossDomain: true,
+        data: {},
+        dataType: "json",
+        headers: { "OTCSTICKET": myTicket },
+
+       success: function (res) {
+    var categoryInfoElement = document.getElementById('categoryInfo');
+    
+    if (categoryInfoElement) {
+        categoryInfoElement.innerHTML = ''; // Clear any existing data
+    
+        // Display all details of the category
+        for (var key in res) {
+            if (res.hasOwnProperty(key)) {
+                var detailItem = document.createElement('div');
+                detailItem.textContent = key + ': ' + res[key];
+                categoryInfoElement.appendChild(detailItem);
+            }
         }
     } else {
-        alert("No data found.");
+        console.log("Category Info Element not found.");
     }
 },
 
-                error: function (res) {
-                    alert("Bad thing happened! " + res.statusText);
-                }
 
-               
-            });
+        error: function (res) {
+            alert("Bad thing happened! " + res.statusText);
         }
+    });
+}
+
