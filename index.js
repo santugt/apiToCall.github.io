@@ -317,9 +317,9 @@ function updatePermissions() {
 
     // Construct the URL based on the selected permission type
     var url;
-    if (permissionType === "group") {
+    if (permissionType == "group") {
         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/group';
-    } else if (permissionType === "public") {
+    } else if (permissionType == "public") {
         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/public';
     } else {
         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/owner';
