@@ -256,3 +256,41 @@ function uploadFile() {
                 });
             });
         }
+
+
+
+
+
+
+
+
+
+function getPermissions() {
+            var nodeId = document.getElementById('nodeIdPerm').value;
+
+
+
+            var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions';
+            myBody = {};
+            $.ajax({
+                url: url,
+                type: "GET",
+                crossDomain: true,
+                data: myBody,
+                dataType: "json",
+                headers: { "OTCSTICKET": myTicket },
+
+                success: function (res) {
+                   console.log(res.data)
+                        }
+                    } else {
+                        alert("No data found.");
+                    }
+                },
+
+                error: function (res) {
+                    alert("Bad thing happened! " + res.statusText);
+                }
+            });
+        }
+
