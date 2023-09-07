@@ -392,9 +392,9 @@ function updatePermissions() {
                 url: url,
                 type: "PUT",
                 crossDomain: true,
-                data: JSON.stringify(permissionsToUpdate),
+                data: permissionsToUpdate,
                 dataType: "json",
-                contentType: "application/json", // Set the content type to JSON
+                
                 headers: { "OTCSTICKET": myTicket },
                 success: function (res) {
                     alert("Permissions updated successfully");
