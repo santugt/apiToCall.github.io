@@ -311,44 +311,97 @@ function getPermissions() {
     });
 }
 
-function updatePermissions() {
-    var nodeId = document.getElementById('nodeIdPermUP').value;
-    var permissionType = document.getElementById('permissionTypeUP').value;
+// function updatePermissions() {
+//     var nodeId = document.getElementById('nodeIdPermUP').value;
+//     var permissionType = document.getElementById('permissionTypeUP').value;
 
-    // Construct the URL based on the selected permission type
-    var url;
-    if (permissionType === "group") {
-        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/group';
-    } else if (permissionType === "public") {
-        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/public';
-    } else {
-        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/owner';
-    }
+//     // Construct the URL based on the selected permission type
+//     var url;
+//     if (permissionType === "group") {
+//         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/group';
+//     } else if (permissionType === "public") {
+//         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/public';
+//     } else {
+//         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/owner';
+//     }
 
-    // Create an object to hold the permissions you want to update
-    var permissionsToUpdate = {
-        permissions: ["see", "see_contents"], // Modify this array with the desired permissions
-        right_id: 6799, // Modify with the desired right_id
-        apply_to: 0 // Modify with the desired apply_to value
-        // Modify with the desired include_sub_types
-    };
+//     // Create an object to hold the permissions you want to update
+//     var permissionsToUpdate = {
+//         permissions: ["see", "see_contents"], // Modify this array with the desired permissions
+//         right_id: 6799, // Modify with the desired right_id
+//         apply_to: 0 // Modify with the desired apply_to value
+//         // Modify with the desired include_sub_types
+//     };
 
-    // Send a PUT request to update permissions
-         $.support.cors = true;
-    $.ajax({
-        url: url,
-        type: "PUT",
-        crossDomain: true,
-        data: permissionsToUpdate,
-        dataType: "json",
+//     // Send a PUT request to update permissions
+//          $.support.cors = true;
+//     $.ajax({
+//         url: url,
+//         type: "PUT",
+//         crossDomain: true,
+//         data: permissionsToUpdate,
+//         dataType: "json",
       
-        headers: { "OTCSTICKET": myTicket },
-        success: function (res) {
-            alert("Permissions updated successfully");
-        },
-        error: function (res) {
-            alert("Failed to update permissions: " + res.statusText);
+//         headers: { "OTCSTICKET": myTicket },
+//         success: function (res) {
+//             alert("Permissions updated successfully");
+//         },
+//         error: function (res) {
+//             alert("Failed to update permissions: " + res.statusText);
+//         }
+//     });
+// }
+
+
+function updatePermissions() {
+            var nodeId = document.getElementById('nodeIdPermUP').value;
+            var permissionType = document.getElementById('permissionTypeUP').value;
+            var rightId = document.getElementById('right_id').value;
+            var applyTo = document.getElementById('apply_to').value;
+
+            // Construct the URL based on the selected permission type
+            var url;
+            if (permissionType === "group") {
+                url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/group';
+            } else if (permissionType === "public") {
+                url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/public';
+            } else {
+                url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/owner';
+            }
+
+            // Gather selected permissions from checkboxes
+            var selectedPermissions = [];
+            var checkboxes = document.getElementsByName('permissions[]');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedPermissions.push(checkboxes[i].value);
+                }
+            }
+
+            // Create an object to hold the permissions you want to update
+            var permissionsToUpdate = {
+                permissions: selectedPermissions,
+                right_id: rightId, // Use the user-input right_id
+                apply_to: applyTo // Use the user-input apply_to value
+                // Modify with the desired include_sub_types
+            };
+
+            // Send a PUT request to update permissions
+            $.support.cors = true;
+            $.ajax({
+                url: url,
+                type: "PUT",
+                crossDomain: true,
+                data: JSON.stringify(permissionsToUpdate),
+                dataType: "json",
+                contentType: "application/json", // Set the content type to JSON
+                headers: { "OTCSTICKET": myTicket },
+                success: function (res) {
+                    alert("Permissions updated successfully");
+                },
+                error: function (res) {
+                    alert("Failed to update permissions: " + res.statusText);
+                }
+            });
         }
-    });
-}
 
