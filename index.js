@@ -263,7 +263,47 @@ function uploadFile() {
 
 
 
-//       function getPermissions() {
+function getPermissions() {
+    var nodeId = document.getElementById('nodeIdPerm').value;
+    var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; 
+    $.ajax({
+        url: url,
+        type: "GET",
+        crossDomain: true,
+        data: {},
+        dataType: "json",
+        headers: { "OTCSTICKET": myTicket },
+        success: function (res) {
+            var results = res.results; // Get the "results" array from the response
+
+            // Create an HTML table
+            var table = '<table border="1"><tr><th>Type</th><th>Permissions</th><th>Right ID</th></tr>';
+            
+            // Iterate through the "results" array and populate the table rows
+            for (var i = 0; i < results.length; i++) {
+                var data = results[i].data.permissions;
+                table += '<tr>';
+                table += '<td>' + data.type + '</td>';
+                table += '<td>' + data.permissions.join(', ') + '</td>';
+                table += '<td>' + data.right_id + '</td>';
+                table += '</tr>';
+            }
+            
+            table += '</table>';
+            
+            // Display the table in the specified container
+            var container = document.getElementById('tableContainer'); // Add this div to your HTML
+            container.innerHTML = ''; // Clear previous content
+            container.innerHTML = table;
+        },
+        error: function (res) {
+            alert("Bad thing happened! " + res.statusText);
+        }
+    });
+}
+
+
+//        function getPermissions() {
 //     var nodeId = document.getElementById('nodeIdPerm').value;
 //     var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; 
 //     $.ajax({
@@ -274,44 +314,21 @@ function uploadFile() {
 //         dataType: "json",
 //         headers: { "OTCSTICKET": myTicket },
 //         success: function (res) {
-//                   console.log(res);
-//             } else {
-//                console.log("not found")
-//             }
+//             // Convert the JSON object to a formatted string
+//             var formattedJSON = JSON.stringify(res, null, 2);
+
+//             // Create a <pre> element to display the formatted JSON
+//             var jsonDisplay = document.createElement('pre');
+//             jsonDisplay.textContent = formattedJSON;
+
+//             // Append the <pre> element to a container div (or directly to the body)
+//             var container = document.getElementById('jsonContainer'); // Add this div to your HTML
+//             container.innerHTML = ''; // Clear previous content
+//             container.appendChild(jsonDisplay);
 //         },
 //         error: function (res) {
 //             alert("Bad thing happened! " + res.statusText);
 //         }
 //     });
 // }
-
-
-       function getPermissions() {
-    var nodeId = document.getElementById('nodeIdPerm').value;
-    var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; 
-    $.ajax({
-        url: url,
-        type: "GET",
-        crossDomain: true,
-        data: {}, // You can remove myBody as it's not needed for a GET request
-        dataType: "json",
-        headers: { "OTCSTICKET": myTicket },
-        success: function (res) {
-            // Convert the JSON object to a formatted string
-            var formattedJSON = JSON.stringify(res, null, 2);
-
-            // Create a <pre> element to display the formatted JSON
-            var jsonDisplay = document.createElement('pre');
-            jsonDisplay.textContent = formattedJSON;
-
-            // Append the <pre> element to a container div (or directly to the body)
-            var container = document.getElementById('jsonContainer'); // Add this div to your HTML
-            container.innerHTML = ''; // Clear previous content
-            container.appendChild(jsonDisplay);
-        },
-        error: function (res) {
-            alert("Bad thing happened! " + res.statusText);
-        }
-    });
-}
 
