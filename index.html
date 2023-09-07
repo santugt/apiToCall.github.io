@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Content Server API</title>
+    <style>
+      
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .content-container {
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <h1>Content Server API</h1>
+        <form id="configForm">
+            <div>
+                <label for="baseURL">URL:&nbsp;&nbsp;</label>
+                <input type="text" id="baseURL" name="baseURL" placeholder="http://localhost/otcs/cs.exe" required>
+            </div>
+            <div>
+                <label for="userName">Username:&nbsp;&nbsp;</label>
+                <input type="text" id="userName" name="userName" required>
+            </div>
+            <div>
+                <label for="password">Password:&nbsp;&nbsp;</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="button" onclick="authenticateUser()">Submit To Generate Ticket</button>
+        </form>
+ <br><h2>------------------------------------------------------------------------</h2><br>
+        <h1>Create a Folder</h1>
+        <form id="folderForm">
+            <div>
+                <label for="parentID">Parent ID:</label>
+                <input type="text" id="parentID" name="parentID" placeholder="Enter Parent ID">
+            </div>
+            <div>
+                <label for="folderName">Folder Name:</label>
+                <input type="text" id="folderName" name="folderName" placeholder="Enter Folder Name">
+            </div>
+            <button type="button" onclick="CreateFolder()">Create Folder</button>
+        </form>
+        <br><h2>------------------------------------------------------------------------</h2><br>
+        <h1>Update Folder Name and Description</h1>
+        <form id="updateForm">
+            <div class="form-group">
+                <label for="nodeIdF">Node ID:</label>
+                <input type="text" class="form-control" id="nodeIdF" name="nodeIdF" placeholder="Enter Node ID">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter new name">
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" name="description" placeholder="Enter new description">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="updateFolderNameDescription()">Update Folder</button>
+        </form>
+        <br><h2>------------------------------------------------------------------------</h2><br>
+        <h1>Fetch Categories</h1>
+        <label for="nodeIdC">Node ID:</label>
+        <input type="text" id="nodeIdC" value="" placeholder="NodeID Of DOC, FOLDER, etc">
+        <button onclick="fetchCategories()">Fetch Categories</button>
+        <div id="nodeIdDisplay"></div>
+        <div id="categoryList"></div>
+        <div id="categoryInfo"></div>
+        <br><h2>------------------------------------------------------------------------</h2><br>
+        <h1>File Upload</h1>
+        <form id="fileUploadForm">
+            <label for="parentIDFile">Parent ID:</label>
+            <input type="text" id="parentIDFile" name="parentIDFile">
+            <br>
+            <label for="fileName">File Name:</label>
+            <input type="text" id="fileName" name="fileName">
+            <br>
+            <label for="file">Choose a file:</label>
+            <input type="file" id="file" name="file">
+            <br>
+            <button type="button" onclick="uploadFile()">Upload File</button>
+        </form>
+        <br><h2>------------------------------------------------------------------------</h2><br>
+        <h1>Node Permissions</h1>
+        <form id="nodeIdForm">
+            <label for="nodeIdPerm">Enter Node ID:</label>
+            <input type="text" id="nodeIdPerm" name="nodeIdPerm" placeholder="Node ID">
+            <br>
+            <button type="button" onclick="getPermissions()" id="getPermissionsButton">Get Node Permissions</button>
+        </form>
+
+        <div id="tableContainer"></div>
+        <br><h2>------------------------------------------------------------------------</h2><br>
+        <h1>Update Permissions</h1>
+        <form id="permissionForm">
+            <label for="nodeIdPermUP">Node ID:</label>
+            <input type="text" id="nodeIdPermUP" name="nodeIdPermUP" placeholder="Enter Node ID"><br><br>
+
+            <label for="permissionTypeUP">Permission Type:</label>
+            <select id="permissionTypeUP" name="permissionTypeUP">
+                <option value="owner">Owner</option>
+                <option value="group">Group</option>
+                <option value="public">Public</option>
+            </select><br><br>
+
+            <label>Permissions:</label><br>
+            <script>
+                var allowablePermissions = [
+                    "see", "see_contents", "modify", "edit_attributes",
+                    "add_items", "reserve", "add_major_version",
+                    "delete_versions", "delete", "edit_permissions"
+                ];
+
+                var permissionsContainer = document.createElement("div");
+
+                for (var i = 0; i < allowablePermissions.length; i++) {
+                    var permission = allowablePermissions[i];
+                    var checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.name = "permissions[]";
+                    checkbox.value = permission;
+                    checkbox.id = "permission_" + permission;
+                    var label = document.createElement("label");
+                    label.htmlFor = "permission_" + permission;
+                    label.appendChild(document.createTextNode(permission));
+
+                    permissionsContainer.appendChild(checkbox);
+                    permissionsContainer.appendChild(label);
+                    permissionsContainer.appendChild(document.createElement("br"));
+                }
+
+                document.getElementById("permissionForm").appendChild(permissionsContainer);
+            </script>
+
+            <label for="right_id">Right ID:</label>
+            <input type="text" id="right_id" name="right_id" placeholder="Enter Right ID"><br><br>
+
+            <label for="apply_to">Apply To:</label>
+            <select id="apply_to" name="apply_to">
+                <option value="0">This Item</option>
+                <option value="1">Sub-Items</option>
+                <option value="2">This Item and Sub-Items</option>
+                <option value="3">This Item And Immediate Sub-Items</option>
+            </select><br><br>
+
+            <button type="button" onclick="updatePermissions()">Update Permissions</button>
+        </form>
+
+        <div id="resultMessage"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://santugt.github.io/apiToCall.github.io/index.js"></script>
+</body>
+</html>
