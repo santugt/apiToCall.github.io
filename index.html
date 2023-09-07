@@ -131,8 +131,8 @@
 
 
 
-         <h1>Update Permissions</h1>
-   <form id="permissionForm">
+       <h1>Update Permissions</h1>
+    <form id="permissionForm">
         <label for="nodeIdPermUP">Node ID:</label>
         <input type="text" id="nodeIdPermUP" name="nodeIdPermUP" placeholder="Enter Node ID"><br><br>
 
@@ -143,12 +143,51 @@
             <option value="public">Public</option>
         </select><br><br>
 
+        <label>Permissions:</label><br>
+        <!-- Dynamically generate checkboxes for allowable permissions -->
+        <script>
+            var allowablePermissions = [
+                "see", "see_contents", "modify", "edit_attributes",
+                "add_items", "reserve", "add_major_version",
+                "delete_versions", "delete", "edit_permissions"
+            ];
+
+            var permissionsContainer = document.createElement("div");
+
+            for (var i = 0; i < allowablePermissions.length; i++) {
+                var permission = allowablePermissions[i];
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "permissions[]";
+                checkbox.value = permission;
+                checkbox.id = "permission_" + permission;
+                var label = document.createElement("label");
+                label.htmlFor = "permission_" + permission;
+                label.appendChild(document.createTextNode(permission));
+
+                permissionsContainer.appendChild(checkbox);
+                permissionsContainer.appendChild(label);
+                permissionsContainer.appendChild(document.createElement("br"));
+            }
+
+            document.getElementById("permissionForm").appendChild(permissionsContainer);
+        </script>
+
+        <label for="right_id">Right ID:</label>
+        <input type="text" id="right_id" name="right_id" placeholder="Enter Right ID"><br><br>
+
+        <label for="apply_to">Apply To:</label>
+        <select id="apply_to" name="apply_to">
+            <option value="0">This Item</option>
+            <option value="1">Sub-Items</option>
+            <option value="2">This Item and Sub-Items</option>
+            <option value="3">This Item And Immediate Sub-Items</option>
+        </select><br><br>
+
         <button type="button" onclick="updatePermissions()">Update Permissions</button>
     </form>
 
-
     <div id="resultMessage"></div>
-
            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://santugt.github.io/apiToCall.github.io/index.js"></script>
 </body>
