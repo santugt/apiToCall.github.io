@@ -311,87 +311,43 @@ function getPermissions() {
     });
 }
 
-
-//        function getPermissions() {
-//     var nodeId = document.getElementById('nodeIdPerm').value;
-//     var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; 
-//     $.ajax({
-//         url: url,
-//         type: "GET",
-//         crossDomain: true,
-//         data: {}, // You can remove myBody as it's not needed for a GET request
-//         dataType: "json",
-//         headers: { "OTCSTICKET": myTicket },
-//         success: function (res) {
-//             // Convert the JSON object to a formatted string
-//             var formattedJSON = JSON.stringify(res, null, 2);
-
-//             // Create a <pre> element to display the formatted JSON
-//             var jsonDisplay = document.createElement('pre');
-//             jsonDisplay.textContent = formattedJSON;
-
-//             // Append the <pre> element to a container div (or directly to the body)
-//             var container = document.getElementById('jsonContainer'); // Add this div to your HTML
-//             container.innerHTML = ''; // Clear previous content
-//             container.appendChild(jsonDisplay);
-//         },
-//         error: function (res) {
-//             alert("Bad thing happened! " + res.statusText);
-//         }
-//     });
-// }
 function updatePermissions() {
-            var nodeId = document.getElementById('nodeId').value;
-            var permissionType = document.getElementById('permissionType').value;
-            var permissions = document.getElementById('permissions').value.split(',').map(item => item.trim());
-            var rightId = document.getElementById('rightId').value.trim();
-            var applyTo = parseInt(document.getElementById('applyTo').value);
-            var includeSubTypes = document.getElementById('includeSubTypes').value.split(',').map(item => parseInt(item.trim()));
+    var nodeId = document.getElementById('nodeIdPerm').value;
+    var permissionType = document.getElementById('permissionType').value;
 
-            var body = {
-                "permissions": permissions
-            };
+    // Construct the URL based on the selected permission type
+    var url;
+    if (permissionType === "group") {
+        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/group';
+    } else if (permissionType === "public") {
+        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/public';
+    } else {
+        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/owner';
+    }
 
-            if (rightId) {
-                body.right_id = parseInt(rightId);
-            }
+    // Create an object to hold the permissions you want to update
+    var permissionsToUpdate = {
+        permissions: ["see", "see_contents"], // Modify this array with the desired permissions
+        right_id: 15234, // Modify with the desired right_id
+        apply_to: 0, // Modify with the desired apply_to value
+        include_sub_types: [204, 207] // Modify with the desired include_sub_types
+    };
 
-            if (applyTo === 0) {
-                body.apply_to = 0;
-            } else if (applyTo === 1) {
-                body.apply_to = 1;
-                body.include_sub_types = includeSubTypes;
-            }
-
-            // Send the PUT request with the constructed body
-            var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/' + permissionType;
-            $.ajax({
-                url: url,
-                type: "PUT",
-                crossDomain: true,
-                data: JSON.stringify(body),
-                dataType: "json",
-                contentType: "application/json",
-                headers: { "OTCSTICKET": myTicket },
-                success: function (res) {
-                    // Display the results and permission details
-                    var resultContainer = document.getElementById('resultContainer');
-                    resultContainer.innerHTML = '';
-
-                    // Display permissions
-                    var permissionsDiv = document.createElement('div');
-                    permissionsDiv.innerHTML = "<h3>Permissions:</h3><pre>" + JSON.stringify(body.permissions, null, 2) + "</pre>";
-                    resultContainer.appendChild(permissionsDiv);
-
-                    // Display other details
-                    var detailsDiv = document.createElement('div');
-                    detailsDiv.innerHTML = "<h3>Apply To:</h3><pre>" + body.apply_to + "</pre><h3>Include Sub-Types:</h3><pre>" + JSON.stringify(body.include_sub_types, null, 2) + "</pre>";
-                    resultContainer.appendChild(detailsDiv);
-
-                    console.log("Permissions updated successfully:", res);
-                },
-                error: function (res) {
-                    console.error("Error updating permissions:", res.statusText);
-                }
-            });
+    // Send a PUT request to update permissions
+    $.ajax({
+        url: url,
+        type: "PUT",
+        crossDomain: true,
+        data: JSON.stringify(permissionsToUpdate),
+        dataType: "json",
+        contentType: "application/json", // Set the content type to JSON
+        headers: { "OTCSTICKET": myTicket },
+        success: function (res) {
+            alert("Permissions updated successfully");
+        },
+        error: function (res) {
+            alert("Failed to update permissions: " + res.statusText);
         }
+    });
+}
+
