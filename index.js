@@ -265,7 +265,16 @@ function uploadFile() {
 
 function getPermissions() {
     var nodeId = document.getElementById('nodeIdPerm').value;
-    var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; 
+    var permissionType = document.getElementById('permissionType').value; // Get the selected permission type
+
+    // Construct the URL based on the selected permission type
+    var url;
+    if (permissionType === "none") {
+        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions';
+    } else {
+        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/' + permissionType;
+    }
+
     $.ajax({
         url: url,
         type: "GET",
