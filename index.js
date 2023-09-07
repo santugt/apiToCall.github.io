@@ -257,7 +257,22 @@ function uploadFile() {
             });
         }
 
+function displayPermissionsTable(permissions) {
+            var tableHtml = '<table border="1">';
+            tableHtml += '<tr><th>Type</th><th>Permissions</th></tr>';
 
+            for (var i = 0; i < permissions.length; i++) {
+                var permission = permissions[i].data.permissions;
+                tableHtml += '<tr>';
+                tableHtml += '<td>' + permission.type + '</td>';
+                tableHtml += '<td>' + permission.permissions.join(', ') + '</td>';
+                tableHtml += '</tr>';
+            }
+
+            tableHtml += '</table>';
+
+            $('#permissionsTableContainer').html(tableHtml);
+        }
 
 
 
@@ -290,4 +305,10 @@ function getPermissions() {
                 }
             });
         }
+
+$(document).ready(function () {
+            $('#getPermissionsButton').click(function () {
+                getPermissions();
+            });
+        });
 
