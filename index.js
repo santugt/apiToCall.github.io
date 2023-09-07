@@ -275,40 +275,34 @@ function displayPermissions(permissions, rightId, type) {
             $('#permissionsContainer').html(permissionsHtml);
         }
 
-        function getPermissions() {
-            var nodeId = document.getElementById('nodeIdInput').value;
-            var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions';
-            myBody = {};
+      function getPermissions() {
+    var nodeId = document.getElementById('nodeIdPerm').value;
+    var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; // Use the correct API version and endpoint
 
-            $.ajax({
-                url: url,
-                type: "GET",
-                crossDomain: true,
-                data: myBody,
-                dataType: "json",
-                headers: { "OTCSTICKET": myTicket },
+    $.ajax({
+        url: url,
+        type: "GET",
+        crossDomain: true,
+        data: {}, // You can remove myBody as it's not needed for a GET request
+        dataType: "json",
+        headers: { "OTCSTICKET": myTicket },
+        success: function (res) {
+            if (res.results && res.results.length > 0) {
+                var permissionsArray = res.results[0].data[0].permissions; // Adjust the structure to access the permissions array
+                var rightId = res.results[0].data[0].permissions.right_id;
+                var type = res.results[0].data[0].permissions.type;
 
-                success: function (res) {
-                    if (res.permissions && Array.isArray(res.permissions.permissions)) {
-                        var permissionsArray = res.permissions.permissions;
-                        var rightId = res.permissions.right_id;
-                        var type = res.permissions.type;
-                        
-                        // Display the permissions in the browser
-                        displayPermissions(permissionsArray, rightId, type);
-                    } else {
-                        $('#permissionsContainer').html('<p>No permissions data found.</p>');
-                    }
-                },
-
-                error: function (res) {
-                    alert("Bad thing happened! " + res.statusText);
-                }
-            });
+                // Display the permissions in the browser
+                displayPermissions(permissionsArray, rightId, type);
+            } else {
+                $('#permissionsTableContainer').html('<p>No permissions data found.</p>');
+            }
+        },
+        error: function (res) {
+            alert("Bad thing happened! " + res.statusText);
         }
+    });
+}
 
-        $(document).ready(function () {
-            $('#getPermissionsButton').click(function () {
-                getPermissions();
-            });
-        });
+
+       
