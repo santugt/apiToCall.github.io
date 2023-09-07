@@ -282,10 +282,7 @@ function getPermissions() {
 
                 success: function (res) {
                    console.log(res.data)
-                        }
-                    } else {
-                        alert("No data found.");
-                    }
+                    
                 },
 
                 error: function (res) {
