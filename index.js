@@ -263,14 +263,23 @@ function uploadFile() {
 
 
 
+function displayPermissions(permissions, rightId, type) {
+            var permissionsHtml = '<h2>Permissions:</h2>';
+            permissionsHtml += '<ul>';
+            for (var i = 0; i < permissions.length; i++) {
+                permissionsHtml += '<li>' + permissions[i] + '</li>';
+            }
+            permissionsHtml += '</ul>';
+            permissionsHtml += '<p>Right ID: ' + rightId + '</p>';
+            permissionsHtml += '<p>Type: ' + type + '</p>';
+            $('#permissionsContainer').html(permissionsHtml);
+        }
 
-function getPermissions() {
-            var nodeId = document.getElementById('nodeIdPerm').value;
-
-
-
+        function getPermissions() {
+            var nodeId = document.getElementById('nodeIdInput').value;
             var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions';
             myBody = {};
+
             $.ajax({
                 url: url,
                 type: "GET",
@@ -279,16 +288,18 @@ function getPermissions() {
                 dataType: "json",
                 headers: { "OTCSTICKET": myTicket },
 
-               success: function (res) {
-    if (res.results && res.results.length > 0) {
-        var permissionsData = res.results[0].data; // Access the first element of the "results" array
-        console.log(permissionsData);
-            alert(permissionsData);
-    } else {
-        console.log("No permissions data found.");
-            alert("No permissions data found.");
-    }
-},
+                success: function (res) {
+                    if (res.permissions && Array.isArray(res.permissions.permissions)) {
+                        var permissionsArray = res.permissions.permissions;
+                        var rightId = res.permissions.right_id;
+                        var type = res.permissions.type;
+                        
+                        // Display the permissions in the browser
+                        displayPermissions(permissionsArray, rightId, type);
+                    } else {
+                        $('#permissionsContainer').html('<p>No permissions data found.</p>');
+                    }
+                },
 
                 error: function (res) {
                     alert("Bad thing happened! " + res.statusText);
@@ -296,5 +307,8 @@ function getPermissions() {
             });
         }
 
-
-
+        $(document).ready(function () {
+            $('#getPermissionsButton').click(function () {
+                getPermissions();
+            });
+        });
