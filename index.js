@@ -281,7 +281,7 @@ function getPermissions() {
                 headers: { "OTCSTICKET": myTicket },
 
                 success: function (res) {
-                   console.log(res.data)
+                   console.log(res)
                     
                 },
 
