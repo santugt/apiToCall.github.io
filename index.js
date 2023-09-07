@@ -263,7 +263,30 @@ function uploadFile() {
 
 
 
-      function getPermissions() {
+//       function getPermissions() {
+//     var nodeId = document.getElementById('nodeIdPerm').value;
+//     var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; 
+//     $.ajax({
+//         url: url,
+//         type: "GET",
+//         crossDomain: true,
+//         data: {}, // You can remove myBody as it's not needed for a GET request
+//         dataType: "json",
+//         headers: { "OTCSTICKET": myTicket },
+//         success: function (res) {
+//                   console.log(res);
+//             } else {
+//                console.log("not found")
+//             }
+//         },
+//         error: function (res) {
+//             alert("Bad thing happened! " + res.statusText);
+//         }
+//     });
+// }
+
+
+       function getPermissions() {
     var nodeId = document.getElementById('nodeIdPerm').value;
     var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; 
     $.ajax({
@@ -274,10 +297,17 @@ function uploadFile() {
         dataType: "json",
         headers: { "OTCSTICKET": myTicket },
         success: function (res) {
-                  console.log(res);
-            } else {
-               console.log("not found")
-            }
+            // Convert the JSON object to a formatted string
+            var formattedJSON = JSON.stringify(res, null, 2);
+
+            // Create a <pre> element to display the formatted JSON
+            var jsonDisplay = document.createElement('pre');
+            jsonDisplay.textContent = formattedJSON;
+
+            // Append the <pre> element to a container div (or directly to the body)
+            var container = document.getElementById('jsonContainer'); // Add this div to your HTML
+            container.innerHTML = ''; // Clear previous content
+            container.appendChild(jsonDisplay);
         },
         error: function (res) {
             alert("Bad thing happened! " + res.statusText);
@@ -285,5 +315,3 @@ function uploadFile() {
     });
 }
 
-
-       
