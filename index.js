@@ -317,9 +317,9 @@ function updatePermissions() {
 
     // Construct the URL based on the selected permission type
     var url;
-    if (permissionType == "group") {
+    if (permissionType === "group") {
         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/group';
-    } else if (permissionType == "public") {
+    } else if (permissionType === "public") {
         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/public';
     } else {
         url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/owner';
@@ -334,13 +334,14 @@ function updatePermissions() {
     };
 
     // Send a PUT request to update permissions
+         $.support.cors = true;
     $.ajax({
         url: url,
         type: "PUT",
         crossDomain: true,
         data: permissionsToUpdate,
         dataType: "json",
-        contentType: "application/json", // Set the content type to JSON
+      
         headers: { "OTCSTICKET": myTicket },
         success: function (res) {
             alert("Permissions updated successfully");
