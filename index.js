@@ -288,7 +288,7 @@ function displayPermissions(permissions, rightId, type) {
         headers: { "OTCSTICKET": myTicket },
         success: function (res) {
             if (res.results && res.results.length > 0) {
-                var permissionsArray = res.results[0].data[0].permissions; // Adjust the structure to access the permissions array
+               
                 var rightId = res.results[0].data[0].permissions.right_id;
                 var type = res.results[0].data[0].permissions.type;
 
