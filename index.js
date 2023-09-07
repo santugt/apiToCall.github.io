@@ -312,8 +312,8 @@ function getPermissions() {
 }
 
 function updatePermissions() {
-    var nodeId = document.getElementById('nodeIdPerm').value;
-    var permissionType = document.getElementById('permissionType').value;
+    var nodeId = document.getElementById('nodeIdPermUP').value;
+    var permissionType = document.getElementById('permissionTypeUP').value;
 
     // Construct the URL based on the selected permission type
     var url;
