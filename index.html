@@ -131,7 +131,7 @@
 
 
 
-           <h1>Update Permissions</h1>
+          <h1>Update Permissions</h1>
     <form id="updatePermissionsForm">
         <label for="nodeId">Node ID:</label>
         <input type="text" id="nodeId" name="nodeId" placeholder="Node ID">
@@ -146,10 +146,15 @@
         <label for="permissions">Permissions:</label>
         <input type="text" id="permissions" name="permissions" placeholder="e.g., see,see_contents">
         <br>
+        <label for="rightId">Right ID (only for owner or group):</label>
+        <input type="text" id="rightId" name="rightId" placeholder="Right ID">
+        <br>
         <label for="applyTo">Apply To:</label>
         <select id="applyTo" name="applyTo">
             <option value="0">This Item</option>
-            <option value="1">This Item and Sub-Items</option>
+            <option value="1">Sub-Items</option>
+            <option value="2">This Item and Sub-Items</option>
+            <option value="3">This Item And Immediate Sub-Items</option>
         </select>
         <br>
         <label for="includeSubTypes">Include Sub-Types:</label>
@@ -158,9 +163,9 @@
         <button type="button" onclick="updatePermissions()">Update Permissions</button>
     </form>
 
-  
+    <!-- Container to display permission details -->
     <div id="resultContainer">
-       
+        <!-- Permission details will be displayed here -->
     </div>
 
            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
