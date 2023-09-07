@@ -220,13 +220,8 @@ function uploadFile() {
 
 function getPermissions() {
     var nodeId = document.getElementById('nodeIdPerm').value;
-    var permissionType = document.getElementById('permissionType').value;
-    var url;
-    if (permissionType === "none") {
-        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions';
-    } else {
-        url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/' + permissionType;
-    }
+    var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions';
+   
 
     $.ajax({
         url: url,
