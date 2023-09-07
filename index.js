@@ -263,22 +263,9 @@ function uploadFile() {
 
 
 
-function displayPermissions(permissions, rightId, type) {
-            var permissionsHtml = '<h2>Permissions:</h2>';
-            permissionsHtml += '<ul>';
-            for (var i = 0; i < permissions.length; i++) {
-                permissionsHtml += '<li>' + permissions[i] + '</li>';
-            }
-            permissionsHtml += '</ul>';
-            permissionsHtml += '<p>Right ID: ' + rightId + '</p>';
-            permissionsHtml += '<p>Type: ' + type + '</p>';
-            $('#permissionsContainer').html(permissionsHtml);
-        }
-
       function getPermissions() {
     var nodeId = document.getElementById('nodeIdPerm').value;
-    var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; // Use the correct API version and endpoint
-
+    var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions'; 
     $.ajax({
         url: url,
         type: "GET",
@@ -287,15 +274,9 @@ function displayPermissions(permissions, rightId, type) {
         dataType: "json",
         headers: { "OTCSTICKET": myTicket },
         success: function (res) {
-            if (res.results && res.results.length > 0) {
-               
-                var rightId = res.results[0].data[0].permissions.right_id;
-                var type = res.results[0].data[0].permissions.type;
-
-                // Display the permissions in the browser
-                displayPermissions(permissionsArray, rightId, type);
+                  console.log(res);
             } else {
-                $('#permissionsTableContainer').html('<p>No permissions data found.</p>');
+               console.log("not found")
             }
         },
         error: function (res) {
