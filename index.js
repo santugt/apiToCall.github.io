@@ -340,4 +340,54 @@ function getPermissions() {
 //         }
 //     });
 // }
+function updatePermissions() {
+    var nodeId = document.getElementById('nodeId').value;
+    var permissionType = document.getElementById('permissionType').value;
+    var permissions = document.getElementById('permissions').value.split(',').map(item => item.trim());
+    var applyTo = parseInt(document.getElementById('applyTo').value);
+    var includeSubTypes = document.getElementById('includeSubTypes').value.split(',').map(item => parseInt(item.trim()));
+
+    var body = {
+        "permissions": permissions
+    };
+
+    if (applyTo === 0) {
+        body.apply_to = 0;
+    } else if (applyTo === 1) {
+        body.apply_to = 1;
+        body.include_sub_types = includeSubTypes;
+    }
+
+    // Send the PUT request with the constructed body
+    var url = baseURL + '/api/v2/nodes/' + nodeId + '/permissions/' + permissionType;
+    $.ajax({
+        url: url,
+        type: "PUT",
+        crossDomain: true,
+        data: JSON.stringify(body),
+        dataType: "json",
+        contentType: "application/json",
+        headers: { "OTCSTICKET": myTicket },
+        success: function (res) {
+            // Display the results and permission details
+            var resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            // Display permissions
+            var permissionsDiv = document.createElement('div');
+            permissionsDiv.innerHTML = "<h3>Permissions:</h3><pre>" + JSON.stringify(body.permissions, null, 2) + "</pre>";
+            resultContainer.appendChild(permissionsDiv);
+
+            // Display other details
+            var detailsDiv = document.createElement('div');
+            detailsDiv.innerHTML = "<h3>Apply To:</h3><pre>" + body.apply_to + "</pre><h3>Include Sub-Types:</h3><pre>" + JSON.stringify(body.include_sub_types, null, 2) + "</pre>";
+            resultContainer.appendChild(detailsDiv);
+
+            console.log("Permissions updated successfully:", res);
+        },
+        error: function (res) {
+            console.error("Error updating permissions:", res.statusText);
+        }
+    });
+}
 
