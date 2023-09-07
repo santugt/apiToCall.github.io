@@ -112,12 +112,20 @@
           <h1>Node Permissions</h1>
 
     <form id="nodeIdForm">
-        <label for="nodeIdPerm">Enter Node ID:</label>
-        <input type="text" id="nodeIdPerm" name="nodeIdPerm" placeholder="Node ID">
-        <br>
-        
-      <button type="button" onclick="getPermissions()" id="getPermissionsButton">Get Node Permissions</button>
-    </form>
+    <label for="nodeIdPerm">Enter Node ID:</label>
+    <input type="text" id="nodeIdPerm" name="nodeIdPerm" placeholder="Node ID">
+    <br>
+    <label for="permissionType">Select Permission Type:</label>
+    <select id="permissionType">
+        <option value="owner">Owner</option>
+        <option value="group">Group</option>
+        <option value="none">None</option> <!-- Add "None" option -->
+        <!-- Add more options as needed -->
+    </select>
+    <br>
+    <button type="button" onclick="getPermissions()" id="getPermissionsButton">Get Node Permissions</button>
+</form>
+
        <div id="tableContainer"></div>
 
            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
