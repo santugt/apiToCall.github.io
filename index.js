@@ -257,22 +257,6 @@ function uploadFile() {
             });
         }
 
-function displayPermissionsTable(permissions) {
-            var tableHtml = '<table border="1">';
-            tableHtml += '<tr><th>Type</th><th>Permissions</th></tr>';
-
-            for (var i = 0; i < permissions.length; i++) {
-                var permission = permissions[i].data.permissions;
-                tableHtml += '<tr>';
-                tableHtml += '<td>' + permission.type + '</td>';
-                tableHtml += '<td>' + permission.permissions.join(', ') + '</td>';
-                tableHtml += '</tr>';
-            }
-
-            tableHtml += '</table>';
-
-            $('#permissionsTableContainer').html(tableHtml);
-        }
 
 
 
@@ -295,10 +279,16 @@ function getPermissions() {
                 dataType: "json",
                 headers: { "OTCSTICKET": myTicket },
 
-                success: function (res) {
-                   console.log(res)
-                    
-                },
+               success: function (res) {
+    if (res.results && res.results.length > 0) {
+        var permissionsData = res.results[0].data; // Access the first element of the "results" array
+        console.log(permissionsData);
+            alert(permissionsData);
+    } else {
+        console.log("No permissions data found.");
+            alert("No permissions data found.");
+    }
+},
 
                 error: function (res) {
                     alert("Bad thing happened! " + res.statusText);
@@ -306,9 +296,5 @@ function getPermissions() {
             });
         }
 
-$(document).ready(function () {
-            $('#getPermissionsButton').click(function () {
-                getPermissions();
-            });
-        });
+
 
