@@ -328,9 +328,9 @@ function updatePermissions() {
     // Create an object to hold the permissions you want to update
     var permissionsToUpdate = {
         permissions: ["see", "see_contents"], // Modify this array with the desired permissions
-        right_id: 15234, // Modify with the desired right_id
-        apply_to: 0, // Modify with the desired apply_to value
-        include_sub_types: [204, 207] // Modify with the desired include_sub_types
+        right_id: 124656, // Modify with the desired right_id
+        apply_to: 0 // Modify with the desired apply_to value
+        // Modify with the desired include_sub_types
     };
 
     // Send a PUT request to update permissions
